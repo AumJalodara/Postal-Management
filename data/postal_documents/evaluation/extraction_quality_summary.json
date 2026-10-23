@@ -1,0 +1,75 @@
+{
+  "pipeline_step": "MODULE_3_STEP_1_ENGLISH_EVALUATION",
+  "document_1_english_summary": {
+    "filename": "postal 2024 rule.pdf",
+    "extracted_pages": 4,
+    "total_characters": 12234,
+    "pdf_pages": [
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "document_2_english_ocr_summary": {
+    "total_pdf_pages": 260,
+    "pages_processed": 115,
+    "successful_pages": 115,
+    "suspicious_pages": 7,
+    "failed_pages": 0,
+    "total_chars_extracted": 202239,
+    "total_words_extracted": 34481,
+    "total_ocr_time_seconds": 110.89
+  },
+  "suspicious_pages_review": [
+    {
+      "pdf_page": 209,
+      "section": "The Post Office Regulations, 2024",
+      "warning": "LOW_ALPHA_RATIO: 0.39 < 0.40",
+      "char_count": 640,
+      "alpha_ratio": 0.3891
+    },
+    {
+      "pdf_page": 212,
+      "section": "The Post Office Regulations, 2024",
+      "warning": "LOW_ALPHA_RATIO: 0.36 < 0.40",
+      "char_count": 633,
+      "alpha_ratio": 0.357
+    },
+    {
+      "pdf_page": 213,
+      "section": "The Post Office Regulations, 2024",
+      "warning": "LOW_ALPHA_RATIO: 0.36 < 0.40",
+      "char_count": 653,
+      "alpha_ratio": 0.3583
+    },
+    {
+      "pdf_page": 215,
+      "section": "The Post Office Regulations, 2024",
+      "warning": "LOW_ALPHA_RATIO: 0.37 < 0.40",
+      "char_count": 585,
+      "alpha_ratio": 0.3658
+    },
+    {
+      "pdf_page": 218,
+      "section": "The Post Office Regulations, 2024",
+      "warning": "LOW_ALPHA_RATIO: 0.38 < 0.40",
+      "char_count": 680,
+      "alpha_ratio": 0.3838
+    },
+    {
+      "pdf_page": 219,
+      "section": "The Post Office Regulations, 2024",
+      "warning": "LOW_ALPHA_RATIO: 0.39 < 0.40",
+      "char_count": 865,
+      "alpha_ratio": 0.385
+    },
+    {
+      "pdf_page": 221,
+      "section": "The Post Office Regulations, 2024",
+      "warning": "LOW_ALPHA_RATIO: 0.39 < 0.40",
+      "char_count": 651,
+      "alpha_ratio": 0.3856
+    }
+  ]
+}

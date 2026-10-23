@@ -1,0 +1,228 @@
+DOC1_PREAMBLE | None | Notification and Enacting Formula | Post Office Rules, 2024 — Preamble
+DOC1_RULE_01 | 1 | Short title and Commencement | Post Office Rules, 2024 — Rule 1
+DOC1_RULE_02 | 2 | Definitions | Post Office Rules, 2024 — Rule 2
+DOC1_RULE_03 | 3 | Services to be provided by Post Office (Domestic/Foreign) | Post Office Rules, 2024 — Rule 3
+DOC1_RULE_04 | 4 | Director General to authorize certain Services | Post Office Rules, 2024 — Rule 4
+DOC1_RULE_05 | 5 | Postal Services Board | Post Office Rules, 2024 — Rule 5
+DOC1_RULE_06 | 6 | The Central Government may, by notification in the Official gazette, specify the | Post Office Rules, 2024 — Rule 6
+DOC1_RULE_07 | 7 | Exclusive privilege in respect of postage stamps | Post Office Rules, 2024 — Rule 7
+DOC1_RULE_08 | 8 | Philatelic Advisory Committee | Post Office Rules, 2024 — Rule 8
+DOC1_RULE_09 | 9 | Modes of payment of postage or other charges | Post Office Rules, 2024 — Rule 9
+DOC1_RULE_10 | 10 | Modes of payment for other Services | Post Office Rules, 2024 — Rule 10
+DOC1_RULE_11 | 11 | Addresses and postcodes | Post Office Rules, 2024 — Rule 11
+DOC1_RULE_12 | 12 | Power to give effect to arrangements with other countries | Post Office Rules, 2024 — Rule 12
+DOC1_RULE_13 | 13 | Official mark to be denoted | Post Office Rules, 2024 — Rule 13
+DOC1_RULE_14 | 14 | Sender of Item | Post Office Rules, 2024 — Rule 14
+DOC1_RULE_15 | 15 | Official mark on items | Post Office Rules, 2024 — Rule 15
+DOC1_RULE_16 | 16 | Interception, detention and opening of item(s) | Post Office Rules, 2024 — Rule 16
+DOC1_RULE_17 | 17 | Duty of authorized officers in delivering items | Post Office Rules, 2024 — Rule 17
+DOC1_RULE_18 | 18 | Interception in addition to and not in derogation of other laws | Post Office Rules, 2024 — Rule 18
+DOC1_RULE_19 | 19 | Exemption from Liability | Post Office Rules, 2024 — Rule 19
+DOC2_ACT_PREAMBLE | None | Enacting Formula, Assent and Preamble | The Post Office Act, 2023 — Preamble
+DOC2_ACT_SECTION_01 | 1 | Short title and commencement | The Post Office Act, 2023 — Section 1
+DOC2_ACT_SECTION_02 | 2 | Definitions | The Post Office Act, 2023 — Section 2
+DOC2_ACT_SECTION_03 | 3 | Services to be provided by Post Office | The Post Office Act, 2023 — Section 3
+DOC2_ACT_SECTION_04 | 4 | Exclusive privilege in respect of postage stamps | The Post Office Act, 2023 — Section 4
+DOC2_ACT_SECTION_05 | 5 | Standards for addressing and postcodes | The Post Office Act, 2023 — Section 5
+DOC2_ACT_SECTION_06 | 6 | International postal arrangements | The Post Office Act, 2023 — Section 6
+DOC2_ACT_SECTION_07 | 7 | Recovery of charges | The Post Office Act, 2023 — Section 7
+DOC2_ACT_SECTION_08 | 8 | Official mark | The Post Office Act, 2023 — Section 8
+DOC2_ACT_SECTION_09 | 9 | Interception, detention and disposal of items | The Post Office Act, 2023 — Section 9
+DOC2_ACT_SECTION_10 | 10 | Exemption from liability | The Post Office Act, 2023 — Section 10
+DOC2_ACT_SECTION_11 | 11 | Delegation of powers | The Post Office Act, 2023 — Section 11
+DOC2_ACT_SECTION_12 | 12 | Power of Central Government to make rules | The Post Office Act, 2023 — Section 12
+DOC2_ACT_SECTION_13 | 13 | Power of Director General to make regulations | The Post Office Act, 2023 — Section 13
+DOC2_ACT_SECTION_14 | 14 | Laying of rules and regulations before Parliament | The Post Office Act, 2023 — Section 14
+DOC2_ACT_SECTION_15 | 15 | Power to remove difficulties | The Post Office Act, 2023 — Section 15
+DOC2_ACT_SECTION_16 | 16 | Repeal and savings | The Post Office Act, 2023 — Section 16
+DOC2_REG_PREAMBLE | None | Notification and Enacting Formula | The Post Office Regulations, 2024 — Preamble
+DOC2_REG_001 | 1 | Short title and commencement | The Post Office Regulations, 2024 — Regulation 1
+DOC2_REG_002 | 2 | Definitions | The Post Office Regulations, 2024 — Regulation 2
+DOC2_REG_003 | 3 | Business hours | The Post Office Regulations, 2024 — Regulation 3
+DOC2_REG_004 | 4 | The Circle Head, Regional Head and Divisional Head are empowered to | The Post Office Regulations, 2024 — Regulation 4
+DOC2_REG_005 | 5 | Payment of postage and other sums chargeable on items (1) Postage shall | The Post Office Regulations, 2024 — Regulation 5
+DOC2_REG_006 | 6 | Postage on unaccountable items and unpaid items | The Post Office Regulations, 2024 — Regulation 6
+DOC2_REG_007 | 7 | Postage and chargeable sums not deemed to be prepaid | The Post Office Regulations, 2024 — Regulation 7
+DOC2_REG_008 | 8 | Supply of postage stamps | The Post Office Regulations, 2024 — Regulation 8
+DOC2_REG_009 | 9 | Fraudulent usage of stamp | The Post Office Regulations, 2024 — Regulation 9
+DOC2_REG_010 | 10 | Mlegal manufacture or usage of postage stamps | The Post Office Regulations, 2024 — Regulation 10
+DOC2_REG_011 | 11 | Philately | The Post Office Regulations, 2024 — Regulation 11
+DOC2_REG_012 | 12 | Philatelic materials | The Post Office Regulations, 2024 — Regulation 12
+DOC2_REG_013 | 13 | Issuance of postage stamps | The Post Office Regulations, 2024 — Regulation 13
+DOC2_REG_014 | 14 | Issuance of Commemorative Postage Stamp.~ Any citizen of India may tender | The Post Office Regulations, 2024 — Regulation 14
+DOC2_REG_015 | 15 | Philatelic Advisory Committee (1) The Philatelic Advisory Committee shall | The Post Office Regulations, 2024 — Regulation 15
+DOC2_REG_016 | 16 | Manner of affixing postage stamps | The Post Office Regulations, 2024 — Regulation 16
+DOC2_REG_017 | 17 | Price of postage stamps and stationery | The Post Office Regulations, 2024 — Regulation 17
+DOC2_REG_018 | 18 | Standards for addressing on domestic items | The Post Office Regulations, 2024 — Regulation 18
+DOC2_REG_019 | 19 | Mails for defence services personnel The following particulars shall be | The Post Office Regulations, 2024 — Regulation 19
+DOC2_REG_020 | 20 | Exemption in method of addressing of an item in certain cases | The Post Office Regulations, 2024 — Regulation 20
+DOC2_REG_021 | 21 | Standards for addressing on international items | The Post Office Regulations, 2024 — Regulation 21
+DOC2_REG_022 | 22 | Posting of items | The Post Office Regulations, 2024 — Regulation 22
+DOC2_REG_023 | 23 | Receipt for transmission by post A xccsipt shall be given to the person who | The Post Office Regulations, 2024 — Regulation 23
+DOC2_REG_024 | 24 | Ownership of items | The Post Office Regulations, 2024 — Regulation 24
+DOC2_REG_025 | 25 | Prohibition of domestic items | The Post Office Regulations, 2024 — Regulation 25
+DOC2_REG_026 | 26 | Prohibition of international items | The Post Office Regulations, 2024 — Regulation 26
+DOC2_REG_027 | 27 | Application of regulation 25 on international items, | The Post Office Regulations, 2024 — Regulation 27
+DOC2_REG_028 | 28 | Transmission of precious metals and precious stones (I) Precious | The Post Office Regulations, 2024 — Regulation 28
+DOC2_REG_029 | 29 | Items for blind prohibited in certain cases.~'The items shall be prohibited from | The Post Office Regulations, 2024 — Regulation 29
+DOC2_REG_030 | 30 | Tlems transmitted in contravention of regulation 27 | The Post Office Regulations, 2024 — Regulation 30
+DOC2_REG_031 | 31 | Customs control (1) Allinternational outbound items tendered at the post office | The Post Office Regulations, 2024 — Regulation 31
+DOC2_REG_032 | 32 | Post Office authorised to collect customs duty, ele | The Post Office Regulations, 2024 — Regulation 32
+DOC2_REG_033 | 33 | Items sent in contravention of any law | The Post Office Regulations, 2024 — Regulation 33
+DOC2_REG_034 | 34 | Disposal of intercepted items | The Post Office Regulations, 2024 — Regulation 34
+DOC2_REG_035 | 35 | ems suspected to contain dangerous substances | The Post Office Regulations, 2024 — Regulation 35
+DOC2_REG_036 | 36 | Restriction on disclosure | The Post Office Regulations, 2024 — Regulation 36
+DOC2_REG_037 | 37 | Disposal of items opened | The Post Office Regulations, 2024 — Regulation 37
+DOC2_REG_038 | 38 | Notice of opening of an item | The Post Office Regulations, 2024 — Regulation 38
+DOC2_REG_039 | 39 | No relief from liability, | The Post Office Regulations, 2024 — Regulation 39
+DOC2_REG_040 | 40 | No right to compensation, | The Post Office Regulations, 2024 — Regulation 40
+DOC2_REG_041 | 41 | Accountable items | The Post Office Regulations, 2024 — Regulation 41
+DOC2_REG_042 | 42 | Accountable items to be issued for delivery (1) An accountable item shall be | The Post Office Regulations, 2024 — Regulation 42
+DOC2_REG_043 | 43 | Addressee to sign in receipl- (1) The addressee of an accountable item ot an | The Post Office Regulations, 2024 — Regulation 43
+DOC2_REG_044 | 44 | Letter delivery box of items other than accountable items | The Post Office Regulations, 2024 — Regulation 44
+DOC2_REG_045 | 45 | Window delivery | The Post Office Regulations, 2024 — Regulation 45
+DOC2_REG_046 | 46 | Post box (1) A person, a firm, or other body, may avail the facility of post box | The Post Office Regulations, 2024 — Regulation 46
+DOC2_REG_047 | 47 | Post bags ~(1) A person, a firm or other body, may avail the facility of post ba | The Post Office Regulations, 2024 — Regulation 47
+DOC2_REG_048 | 48 | Smart delivery box (I) The Circle Head is authorised to designate the post offic | The Post Office Regulations, 2024 — Regulation 48
+DOC2_REG_049 | 49 | Delivery to public officers | The Post Office Regulations, 2024 — Regulation 49
+DOC2_REG_050 | 50 | Special procedure for delivering items to firms, ete« (1) The items addressed fo | The Post Office Regulations, 2024 — Regulation 50
+DOC2_REG_051 | 51 | Items addressed to deceased persons | The Post Office Regulations, 2024 — Regulation 51
+DOC2_REG_052 | 52 | Delivery of damaged item | The Post Office Regulations, 2024 — Regulation 52
+DOC2_REG_053 | 53 | Intimation to addressee | The Post Office Regulations, 2024 — Regulation 53
+DOC2_REG_054 | 54 | Seeking identification of addressee, if needed (1) The postman or delivery | The Post Office Regulations, 2024 — Regulation 54
+DOC2_REG_055 | 55 | Redirection of items | The Post Office Regulations, 2024 — Regulation 55
+DOC2_REG_056 | 56 | Request to avail certain facilities | The Post Office Regulations, 2024 — Regulation 56
+DOC2_REG_057 | 57 | Manner of making request | The Post Office Regulations, 2024 — Regulation 57
+DOC2_REG_058 | 58 | Post Office not liable for non-fulfilment of request | The Post Office Regulations, 2024 — Regulation 58
+DOC2_REG_059 | 59 | Postage payable on delivery The Postmaster or officer in-charge, shall ensure | The Post Office Regulations, 2024 — Regulation 59
+DOC2_REG_060 | 60 | Postage-due stamp | The Post Office Regulations, 2024 — Regulation 60
+DOC2_REG_061 | 61 | Delivery of items on which customs duty is due-Items on wihich customs duty | The Post Office Regulations, 2024 — Regulation 61
+DOC2_REG_062 | 62 | Refusal of items | The Post Office Regulations, 2024 — Regulation 62
+DOC2_REG_063 | 63 | Obligation to pay sum charged | The Post Office Regulations, 2024 — Regulation 63
+DOC2_REG_064 | 64 | Detention and disposal of undelivered items at post office of addrescee | The Post Office Regulations, 2024 — Regulation 64
+DOC2_REG_065 | 65 | Undelivered items to be returned in certain cases | The Post Office Regulations, 2024 — Regulation 65
+DOC2_REG_066 | 66 | Standard remarks on undelivered items | The Post Office Regulations, 2024 — Regulation 66
+DOC2_REG_067 | 67 | Detention and disposal of undelivered items at Returned Letter Office (RLO) | The Post Office Regulations, 2024 — Regulation 67
+DOC2_REG_068 | 68 | Procedure in case of dealing undelivered items | The Post Office Regulations, 2024 — Regulation 68
+DOC2_REG_069 | 69 | Period for which intimation regarding change in address remain valid | The Post Office Regulations, 2024 — Regulation 69
+DOC2_REG_070 | 70 | Officers or officials authorised to make an official mark | The Post Office Regulations, 2024 — Regulation 70
+DOC2_REG_071 | 71 | Recovery of dues in respect of unpaid and insufficiently paid domestic items | The Post Office Regulations, 2024 — Regulation 71
+DOC2_REG_072 | 72 | Recovery of dues in respect of unpaid and insufficiently paid international | The Post Office Regulations, 2024 — Regulation 72
+DOC2_REG_073 | 73 | Compensation in respect of domestic items | The Post Office Regulations, 2024 — Regulation 73
+DOC2_REG_074 | 74 | Compensation in respect of insured items There shall be payable to the sender | The Post Office Regulations, 2024 — Regulation 74
+DOC2_REG_075 | 75 | Complaint in respect of domestic or insured items | The Post Office Regulations, 2024 — Regulation 75
+DOC2_REG_076 | 76 | Filing of complaint | The Post Office Regulations, 2024 — Regulation 76
+DOC2_REG_077 | 77 | ems treated as lost (1) The maximum period after which an item may be treated | The Post Office Regulations, 2024 — Regulation 77
+DOC2_REG_078 | 78 | Compensation in case of international items (I) The compensation shall be | The Post Office Regulations, 2024 — Regulation 78
+DOC2_REG_079 | 79 | Complaint in respect of international items | The Post Office Regulations, 2024 — Regulation 79
+DOC2_REG_080 | 80 | No compensation to be paid in certain cases (1) No compensation shall be | The Post Office Regulations, 2024 — Regulation 80
+DOC2_REG_081 | 81 | Period for settlement of compensation | The Post Office Regulations, 2024 — Regulation 81
+DOC2_REG_082 | 82 | Complaint, how to be made | The Post Office Regulations, 2024 — Regulation 82
+DOC2_REG_083 | 83 | Liability for compensation in force majeure circumstances, | The Post Office Regulations, 2024 — Regulation 83
+DOC2_REG_084 | 84 | Suspension or restriction of transmission of items | The Post Office Regulations, 2024 — Regulation 84
+DOC2_REG_085 | 85 | Treatment and transmission of items | The Post Office Regulations, 2024 — Regulation 85
+DOC2_REG_086 | 86 | Treatment of counterfeit currency | The Post Office Regulations, 2024 — Regulation 86
+DOC2_REG_087 | 87 | Letters | The Post Office Regulations, 2024 — Regulation 87
+DOC2_REG_088 | 88 | Letters in other than roll form | The Post Office Regulations, 2024 — Regulation 88
+DOC2_REG_089 | 89 | Letter cards.~ Letter cards may be transmitted by post, if it conforms to the | The Post Office Regulations, 2024 — Regulation 89
+DOC2_REG_090 | 90 | Conditions where infringed | The Post Office Regulations, 2024 — Regulation 90
+DOC2_REG_091 | 91 | Posteards | The Post Office Regulations, 2024 — Regulation 91
+DOC2_REG_092 | 92 | Book post (1) Item containing book, cards, magazines, journals, publications of | The Post Office Regulations, 2024 — Regulation 92
+DOC2_REG_093 | 93 | Literature for blind | The Post Office Regulations, 2024 — Regulation 93
+DOC2_REG_094 | 94 | Periodical Post | The Post Office Regulations, 2024 — Regulation 94
+DOC2_REG_095 | 95 | Registered newspapers | The Post Office Regulations, 2024 — Regulation 95
+DOC2_REG_096 | 96 | India post parcel | The Post Office Regulations, 2024 — Regulation 96
+DOC2_REG_097 | 97 | Logistic post | The Post Office Regulations, 2024 — Regulation 97
+DOC2_REG_098 | 98 | Speed post, | The Post Office Regulations, 2024 — Regulation 98
+DOC2_REG_099 | 99 | Speed post document | The Post Office Regulations, 2024 — Regulation 99
+DOC2_REG_100 | 100 | Speed post parcel (I) Sub-regutations (1), @), @), (6), (7) to (10) of regulatio | The Post Office Regulations, 2024 — Regulation 100
+DOC2_REG_101 | 101 | Direct post | The Post Office Regulations, 2024 — Regulation 101
+DOC2_REG_102 | 102 | Media post (1) Media post shall be an advertising mechanism designed to help | The Post Office Regulations, 2024 — Regulation 102
+DOC2_REG_103 | 103 | ¢-Post | The Post Office Regulations, 2024 — Regulation 103
+DOC2_REG_104 | 104 | e-Payment- (1) e-Payment provides the services of collection of bill amount oF | The Post Office Regulations, 2024 — Regulation 104
+DOC2_REG_105 | 105 | Retail post | The Post Office Regulations, 2024 — Regulation 105
+DOC2_REG_106 | 106 | Magazine post | The Post Office Regulations, 2024 — Regulation 106
+DOC2_REG_107 | 107 | International post | The Post Office Regulations, 2024 — Regulation 107
+DOC2_REG_108 | 108 | Letters (International) | The Post Office Regulations, 2024 — Regulation 108
+DOC2_REG_109 | 109 | Acrogramme | The Post Office Regulations, 2024 — Regulation 109
+DOC2_REG_110 | 110 | Post card (International) (1) Postcard is an open communication transmitted by | The Post Office Regulations, 2024 — Regulation 110
+DOC2_REG_111 | 111 | Airmail postcard | The Post Office Regulations, 2024 — Regulation 111
+DOC2_REG_112 | 112 | Small packet | The Post Office Regulations, 2024 — Regulation 112
+DOC2_REG_113 | 113 | Printed papers | The Post Office Regulations, 2024 — Regulation 113
+DOC2_REG_114 | 114 | M-Bag, (Bulk bag) (1) M-Bag (Bulk bag) are special bags containing printed. | The Post Office Regulations, 2024 — Regulation 114
+DOC2_REG_115 | 115 | Literature for blind (International) | The Post Office Regulations, 2024 — Regulation 115
+DOC2_REG_116 | 116 | International tracked packet service (I1PS) | The Post Office Regulations, 2024 — Regulation 116
+DOC2_REG_117 | 117 | International air pareel | The Post Office Regulations, 2024 — Regulation 117
+DOC2_REG_118 | 118 | International speed post | The Post Office Regulations, 2024 — Regulation 118
+DOC2_REG_119 | 119 | Booking | The Post Office Regulations, 2024 — Regulation 119
+DOC2_REG_120 | 120 | Flectronic advance data (EAD) | The Post Office Regulations, 2024 — Regulation 120
+DOC2_REG_121 | 121 | Packaging (1) All items shall be made up securely and in such a way that there | The Post Office Regulations, 2024 — Regulation 121
+DOC2_REG_122 | 122 | Delivery in country or territory of destination, | The Post Office Regulations, 2024 — Regulation 122
+DOC2_REG_123 | 123 | Other features | The Post Office Regulations, 2024 — Regulation 123
+DOC2_REG_124 | 124 | Track and trace service | The Post Office Regulations, 2024 — Regulation 124
+DOC2_REG_125 | 125 | Inward international mails | The Post Office Regulations, 2024 — Regulation 125
+DOC2_REG_126 | 126 | Failure to take delivery | The Post Office Regulations, 2024 — Regulation 126
+DOC2_REG_127 | 127 | Failure to take delivery of Post Restante parcel | The Post Office Regulations, 2024 — Regulation 127
+DOC2_REG_128 | 128 | Mail services under Universal Postal Service | The Post Office Regulations, 2024 — Regulation 128
+DOC2_REG_129 | 129 | On postal service | The Post Office Regulations, 2024 — Regulation 129
+DOC2_REG_130 | 130 | (0 | The Post Office Regulations, 2024 — Regulation 130
+DOC2_REG_131 | 131 | Postal ballot or election material | The Post Office Regulations, 2024 — Regulation 131
+DOC2_REG_132 | 132 | Registration of domestic items | The Post Office Regulations, 2024 — Regulation 132
+DOC2_REG_133 | 133 | Insurance of domestic items | The Post Office Regulations, 2024 — Regulation 133
+DOC2_REG_134 | 134 | Airmail service | The Post Office Regulations, 2024 — Regulation 134
+DOC2_REG_135 | 135 | Cash on delivery (COD) items (1) Cash on dolivery shall be made available by | The Post Office Regulations, 2024 — Regulation 135
+DOC2_REG_136 | 136 | Proof of delivery | The Post Office Regulations, 2024 — Regulation 136
+DOC2_REG_137 | 137 | Services relating to pre-mailing activities | The Post Office Regulations, 2024 — Regulation 137
+DOC2_REG_138 | 138 | Registration of international items | The Post Office Regulations, 2024 — Regulation 138
+DOC2_REG_139 | 139 | Insurance of International items, | The Post Office Regulations, 2024 — Regulation 139
+DOC2_REG_140 | 140 | International items with precious metals | The Post Office Regulations, 2024 — Regulation 140
+DOC2_REG_141 | 141 | AL, Redirected or returned international item, | The Post Office Regulations, 2024 — Regulation 141
+DOC2_REG_142 | 142 | Compensation payable | The Post Office Regulations, 2024 — Regulation 142
+DOC2_REG_143 | 143 | Surface aislift and air surcharge | The Post Office Regulations, 2024 — Regulation 143
+DOC2_REG_144 | 144 | Advice of delivery | The Post Office Regulations, 2024 — Regulation 144
+DOC2_REG_145 | 145 | Domestic money order | The Post Office Regulations, 2024 — Regulation 145
+DOC2_REG_146 | 146 | Period of currency of money order | The Post Office Regulations, 2024 — Regulation 146
+DOC2_REG_147 | 147 | Categories of money order The money order shall be booked uniler the | The Post Office Regulations, 2024 — Regulation 147
+DOC2_REG_148 | 148 | Booking of money order | The Post Office Regulations, 2024 — Regulation 148
+DOC2_REG_149 | 149 | The remitter of a money order shall be entitled to obtain, free of charge,- | The Post Office Regulations, 2024 — Regulation 149
+DOC2_REG_150 | 150 | Payment of money order | The Post Office Regulations, 2024 — Regulation 150
+DOC2_REG_151 | 151 | Redirection of money order | The Post Office Regulations, 2024 — Regulation 151
+DOC2_REG_152 | 152 | Exemption from liability of Post Office in respect of money order | The Post Office Regulations, 2024 — Regulation 152
+DOC2_REG_153 | 153 | Undelivered Money Order | The Post Office Regulations, 2024 — Regulation 153
+DOC2_REG_154 | 154 | Void money order | The Post Office Regulations, 2024 — Regulation 154
+DOC2_REG_155 | 155 | Forfeiture of money order amount | The Post Office Regulations, 2024 — Regulation 155
+DOC2_REG_156 | 156 | Suspension of service | The Post Office Regulations, 2024 — Regulation 156
+DOC2_REG_157 | 157 | Postal onder | The Post Office Regulations, 2024 — Regulation 157
+DOC2_REG_158 | 158 | Currency period | The Post Office Regulations, 2024 — Regulation 158
+DOC2_REG_159 | 159 | Forfeiture | The Post Office Regulations, 2024 — Regulation 159
+DOC2_REG_160 | 160 | Repayment of postal order | The Post Office Regulations, 2024 — Regulation 160
+DOC2_REG_161 | 161 | Payee's name essential | The Post Office Regulations, 2024 — Regulation 161
+DOC2_REG_162 | 162 | Payment through bank | The Post Office Regulations, 2024 — Regulation 162
+DOC2_REG_163 | 163 | Payment of crossed postal order | The Post Office Regulations, 2024 — Regulation 163
+DOC2_REG_164 | 164 | Mutilated postal orders | The Post Office Regulations, 2024 — Regulation 164
+DOC2_REG_165 | 165 | Electronic postal order | The Post Office Regulations, 2024 — Regulation 165
+DOC2_REG_166 | 166 | Foreign money orders. | The Post Office Regulations, 2024 — Regulation 166
+DOC2_REG_167 | 167 | Advice to remitter of foreign money order | The Post Office Regulations, 2024 — Regulation 167
+DOC2_REG_168 | 168 | Remitter to change name or address for payment, ~ (1) The remitter of @ | The Post Office Regulations, 2024 — Regulation 168
+DOC2_REG_169 | 169 | Inward foreign money orders | The Post Office Regulations, 2024 — Regulation 169
+DOC2_REG_170 | 170 | Book now pay later facility | The Post Office Regulations, 2024 — Regulation 170
+DOC2_REG_171 | 171 | Authority authorised to approve, ~ (1) The Divisional Head shall be authorised | The Post Office Regulations, 2024 — Regulation 171
+DOC2_REG_172 | 172 | National account facility | The Post Office Regulations, 2024 — Regulation 172
+DOC2_REG_173 | 173 | Advance payment facility | The Post Office Regulations, 2024 — Regulation 173
+DOC2_REG_174 | 174 | Post Office network for citizen centric services, ~ (1) Post Office shall provid | The Post Office Regulations, 2024 — Regulation 174
+DOC2_REG_175 | 175 | Postal Index Number | The Post Office Regulations, 2024 — Regulation 175
+DOC2_REG_176 | 176 | Franking machines | The Post Office Regulations, 2024 — Regulation 176
+DOC2_REG_177 | 177 | Issuance of updated version of regulations annually | The Post Office Regulations, 2024 — Regulation 177
+DOC2_REG_178 | 178 | Postal operations order | The Post Office Regulations, 2024 — Regulation 178
+DOC2_REG_179 | 179 | Insurance services, ~ (1) The aclministration of insurance services including Li | The Post Office Regulations, 2024 — Regulation 179
+DOC2_REG_180 | 180 | Administrative instructions for financial secvices | The Post Office Regulations, 2024 — Regulation 180
+DOC2_REG_SCHEDULE_I | I | SCHEDULE I: POSTAGE AND FEE FOR DOMESTIC ITEMS | The Post Office Regulations, 2024 — SCHEDULE I
+DOC2_REG_SCHEDULE_II | II | SCHEDULE II: POSTAGE AND FEE FOR OTHER POSTAL ITEMS | The Post Office Regulations, 2024 — SCHEDULE II
+DOC2_REG_SCHEDULE_III | III | SCHEDULE III: POSTAGE AND FEE FOR INTERNATIONAL ITEMS | The Post Office Regulations, 2024 — SCHEDULE III
+DOC2_REG_SCHEDULE_IV | IV | SCHEDULE IV: VALUE ADDED SERVICES | The Post Office Regulations, 2024 — SCHEDULE IV
+DOC2_REG_SCHEDULE_V | V | SCHEDULE V: MONEY REMITTANCE SERVICES | The Post Office Regulations, 2024 — SCHEDULE V
+DOC2_AMEND_2025_01 | 2025_01 | Post Office (Amendment) Regulations, 2025 — First Amendment (Tariffs & Schedules) | Post Office (Amendment) Regulations, 2025 (S.O. 1523(E), 28th March 2025)
+DOC2_AMEND_2025_02 | 2025_02 | Post Office (Second Amendment) Regulations, 2025 — Gyan Post (Regulation 98A & Tariffs) | Post Office (Second Amendment) Regulations, 2025 (S.O. 2636(E), 28th April 2025)
+DOC2_AMEND_2025_03 | 2025_03 | Post Office (Third Amendment) Regulations, 2025 — Tariffs Amendment | Post Office (Third Amendment) Regulations, 2025 (S.O. 2738(E), 19th June 2025)
+DOC2_AMEND_2025_04 | 2025_04 | Post Office (Fourth Amendment) Regulations, 2025 — Speed Post Document (Table IV A) | Post Office (Fourth Amendment) Regulations, 2025 (S.O. 4375(E), 25th September 2025)
+DOC2_AMEND_2025_05 | 2025_05 | Post Office (Fifth Amendment) Regulations, 2025 — Schedule III Tariffs | Post Office (Fifth Amendment) Regulations, 2025 (S.O. 4907(E), 28th October 2025)

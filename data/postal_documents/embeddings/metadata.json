@@ -1,0 +1,13 @@
+{
+  "corpus_file": "postal_english_chunks.jsonl",
+  "corpus_sha256": "e571a93dee541e181582c59e89dd0236344a7db4ed8198e6dc91e6d5acccb26b",
+  "chunk_count": 228,
+  "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_dim": 384,
+  "max_seq_length": 256,
+  "tokenizer_max_length": 256,
+  "preprocessing_version": "1.0.0",
+  "chunk_text_template": "{heading}. {legal_reference}.\n{text}",
+  "encoding_time_seconds": 4.59,
+  "created_at": "2026-09-12T12:00:04Z"
+}

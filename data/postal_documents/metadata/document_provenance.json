@@ -1,0 +1,175 @@
+{
+  "pipeline_step": "MODULE_3_STEP_1_ENGLISH_EXTRACTION",
+  "scope": "ENGLISH_ONLY",
+  "timestamp_generated": "2026-09-11T01:40:00Z",
+  "software_environment": {
+    "python_version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "pypdf_version": "6.18.0",
+    "pytesseract_version": "0.3.13",
+    "tesseract_version": "5.4.0.20240606",
+    "ocr_language": "eng"
+  },
+  "source_documents": {
+    "postal 2024 rule.pdf": {
+      "path": "C:\\Users\\Aum\\Desktop\\IR Project\\smart-postal-system\\data\\postal_documents\\raw\\postal 2024 rule.pdf",
+      "size_bytes": 1928918,
+      "sha256": "325fd309ffa37190dffceae745e01aeda9fb9add6c57dba8c6409f9a7f2d95f9",
+      "status": "VERIFIED_UNCHANGED"
+    },
+    "rule and regulation.pdf": {
+      "path": "C:\\Users\\Aum\\Desktop\\IR Project\\smart-postal-system\\data\\postal_documents\\raw\\rule and regulation.pdf",
+      "size_bytes": 25167446,
+      "sha256": "ca7be6edc8cbe0b8145cc69e6d7bc9e329c2cf4acd1f746a541f1c726257d45e",
+      "status": "VERIFIED_UNCHANGED"
+    }
+  },
+  "document_1_english_selection": {
+    "source_filename": "postal 2024 rule.pdf",
+    "total_pages": 8,
+    "english_pages": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "skipped_hindi_pages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "mixed_page_treatment": "Page 5 filtered from 'MINISTRY OF COMMUNICATIONS' to retain English notification only"
+  },
+  "document_2_english_selection": {
+    "source_filename": "rule and regulation.pdf",
+    "total_pages": 260,
+    "english_ocr_pages_count": 115,
+    "target_page_ranges": [
+      {
+        "start": 12,
+        "end": 15,
+        "title": "The Post Office Act, 2023",
+        "type": "STATUTORY_ACT",
+        "pub_date": "2023-12-24"
+      },
+      {
+        "start": 128,
+        "end": 228,
+        "title": "The Post Office Regulations, 2024",
+        "type": "STATUTORY_REGULATIONS",
+        "pub_date": "2024-12-16"
+      },
+      {
+        "start": 231,
+        "end": 233,
+        "title": "Post Office (Amendment) Regulations, 2025 (1st Amendment)",
+        "type": "AMENDMENT_REGULATIONS",
+        "pub_date": "2025-01-01"
+      },
+      {
+        "start": 237,
+        "end": 238,
+        "title": "Post Office (Second Amendment) Regulations, 2025 (Gyan Post)",
+        "type": "AMENDMENT_REGULATIONS",
+        "pub_date": "2025-01-01"
+      },
+      {
+        "start": 240,
+        "end": 240,
+        "title": "Post Office (Third Amendment) Regulations, 2025 (Tariffs)",
+        "type": "AMENDMENT_REGULATIONS",
+        "pub_date": "2025-01-01"
+      },
+      {
+        "start": 244,
+        "end": 245,
+        "title": "Post Office (Fourth Amendment) Regulations, 2025 (Speed Post Document)",
+        "type": "AMENDMENT_REGULATIONS",
+        "pub_date": "2025-01-01"
+      },
+      {
+        "start": 248,
+        "end": 249,
+        "title": "Post Office (Fifth Amendment) Regulations, 2025",
+        "type": "AMENDMENT_REGULATIONS",
+        "pub_date": "2025-01-01"
+      }
+    ],
+    "skipped_page_ranges": [
+      {
+        "pages": "1-10",
+        "count": 10,
+        "classification": "NON_CONTENT",
+        "reason": "Cover, portraits, forewords, institutional messages"
+      },
+      {
+        "pages": "11",
+        "count": 1,
+        "classification": "NON_CONTENT",
+        "reason": "Compendium Master Index / Table of Contents"
+      },
+      {
+        "pages": "16-23",
+        "count": 8,
+        "classification": "DUPLICATE",
+        "reason": "Duplicate of Rules 2024 (ingested from clean vector Document 1)"
+      },
+      {
+        "pages": "24-127",
+        "count": 104,
+        "classification": "HINDI",
+        "reason": "The Post Office Regulations, 2024 Hindi translation (Regulations 1 to 115)"
+      },
+      {
+        "pages": "229-230",
+        "count": 2,
+        "classification": "HINDI",
+        "reason": "1st Amendment Regulations, 2025 Hindi Gazette notification"
+      },
+      {
+        "pages": "234-236",
+        "count": 3,
+        "classification": "HINDI",
+        "reason": "2nd Amendment Regulations, 2025 Hindi Gazette notification"
+      },
+      {
+        "pages": "239",
+        "count": 1,
+        "classification": "HINDI",
+        "reason": "3rd Amendment Regulations, 2025 Hindi Gazette notification"
+      },
+      {
+        "pages": "241-243",
+        "count": 3,
+        "classification": "HINDI",
+        "reason": "4th Amendment Regulations, 2025 Hindi Gazette notification"
+      },
+      {
+        "pages": "246-247",
+        "count": 2,
+        "classification": "HINDI",
+        "reason": "5th Amendment Regulations, 2025 Hindi Gazette notification"
+      },
+      {
+        "pages": "250-259",
+        "count": 10,
+        "classification": "NON_REGULATORY_REFERENCE",
+        "reason": "1898 vs 2023 Comparative Matrix (historical concordance table)"
+      },
+      {
+        "pages": "260",
+        "count": 1,
+        "classification": "NON_CONTENT",
+        "reason": "Back cover"
+      }
+    ],
+    "skipped_pages_count": 145
+  },
+  "duplicate_rules_policy": {
+    "authoritative_source": "postal 2024 rule.pdf",
+    "authoritative_pages": "Pages 5-8 (English Gazette)",
+    "duplicate_source": "rule and regulation.pdf",
+    "duplicate_pages": "PDF Pages 16-23 (Compendium Document Pages 5-12)",
+    "action_taken": "EXCLUDED_FROM_DOC2_OCR_TO_PREVENT_DUPLICATE_CHUNKS"
+  }
+}

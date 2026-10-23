@@ -1,0 +1,902 @@
+{
+  "benchmark_metadata": {
+    "timestamp": "2026-09-11T18:55:55Z",
+    "corpus_chunks": 228,
+    "evaluation_queries": 35,
+    "database_engine": "PostgreSQL 15.8 (Native Full-Text Search)",
+    "search_configuration": "english (Snowball stemmer + stopwords)",
+    "indexing_method": "GIN (Generalized Inverted Index)",
+    "ranking_algorithm": "ts_rank_cd (Cover Density Ranking, normalization=32)",
+    "weights": {
+      "A": [
+        "heading",
+        "legal_reference"
+      ],
+      "B": [
+        "text"
+      ]
+    }
+  },
+  "aggregate_metrics": {
+    "recall_at_1": 0.8571,
+    "recall_at_3": 0.9143,
+    "recall_at_5": 0.9143,
+    "recall_at_10": 0.9143,
+    "precision_at_5": 0.2229,
+    "mrr": 0.8857,
+    "ndcg_at_5": 0.8015
+  },
+  "latency_statistics": {
+    "count": 35,
+    "mean_ms": 8.55,
+    "median_ms": 4.49,
+    "min_ms": 1.69,
+    "max_ms": 123.17,
+    "stdev_ms": 20.14
+  },
+  "failure_analysis": {
+    "total_failed_at_k5": 3,
+    "failed_queries": [
+      {
+        "query_id": "Q008",
+        "query": "Speed post service conditions",
+        "category": "speed_post",
+        "expected": [
+          "DOC2_REG_098"
+        ],
+        "retrieved_top_5": [
+          "DOC2_REG_118",
+          "DOC2_REG_106",
+          "DOC2_REG_117",
+          "DOC1_PREAMBLE",
+          "DOC1_RULE_01"
+        ],
+        "reason": "Expected statutory chunk not retrieved in Top-5 lexical cover density candidates.",
+        "total_matches": 228
+      },
+      {
+        "query_id": "Q028",
+        "query": "Payee's name essential for money order remittance",
+        "category": "money_services",
+        "expected": [
+          "DOC2_REG_161"
+        ],
+        "retrieved_top_5": [
+          "DOC1_PREAMBLE",
+          "DOC1_RULE_03",
+          "DOC1_RULE_09",
+          "DOC1_RULE_16",
+          "DOC2_ACT_SECTION_07"
+        ],
+        "reason": "Expected statutory chunk not retrieved in Top-5 lexical cover density candidates.",
+        "total_matches": 88
+      },
+      {
+        "query_id": "Q035",
+        "query": "Repeal and savings of Post Office Act 1898",
+        "category": "administration",
+        "expected": [
+          "DOC2_ACT_SECTION_16"
+        ],
+        "retrieved_top_5": [
+          "DOC1_PREAMBLE",
+          "DOC1_RULE_01",
+          "DOC1_RULE_02",
+          "DOC1_RULE_03",
+          "DOC1_RULE_04"
+        ],
+        "reason": "Expected statutory chunk not retrieved in Top-5 lexical cover density candidates.",
+        "total_matches": 228
+      }
+    ]
+  },
+  "per_query_results": [
+    {
+      "query_id": "Q001",
+      "query": "Definitions under Post Office Act",
+      "category": "definitions",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_ACT_SECTION_02"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_ACT_SECTION_02",
+        "DOC1_RULE_02",
+        "DOC2_REG_106",
+        "DOC2_REG_094",
+        "DOC2_REG_095"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.879,
+      "first_relevant_rank": 1,
+      "latency_ms": 123.17,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q002",
+      "query": "Definitions in Post Office Regulations",
+      "category": "definitions",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_002"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_002",
+        "DOC2_REG_013",
+        "DOC2_REG_106",
+        "DOC2_REG_094",
+        "DOC2_REG_095"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 4.31,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q003",
+      "query": "Smart delivery box",
+      "category": "delivery",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_048"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_048",
+        "DOC1_RULE_02",
+        "DOC2_AMEND_2025_02",
+        "DOC2_AMEND_2025_04",
+        "DOC2_REG_002"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 1.69,
+      "total_matches": 62
+    },
+    {
+      "query_id": "Q004",
+      "query": "Special procedure for delivering items to firms",
+      "category": "delivery",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_050"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_050",
+        "DOC1_RULE_02",
+        "DOC1_RULE_07",
+        "DOC1_RULE_08",
+        "DOC1_RULE_11"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 5.83,
+      "total_matches": 149
+    },
+    {
+      "query_id": "Q005",
+      "query": "Delivery of damaged item",
+      "category": "delivery",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_052"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_052",
+        "DOC2_REG_078",
+        "DOC2_REG_073",
+        "DOC2_REG_080",
+        "DOC2_REG_142"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.99,
+      "total_matches": 141
+    },
+    {
+      "query_id": "Q006",
+      "query": "Seeking identification of addressee",
+      "category": "delivery",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_054"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_054",
+        "DOC1_RULE_03",
+        "DOC1_RULE_11",
+        "DOC1_RULE_14",
+        "DOC2_ACT_SECTION_05"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.09,
+      "total_matches": 64
+    },
+    {
+      "query_id": "Q007",
+      "query": "Postage payable on delivery",
+      "category": "delivery",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_059"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_059",
+        "DOC2_AMEND_2025_02",
+        "DOC2_REG_SCHEDULE_IV",
+        "DOC2_REG_091",
+        "DOC2_REG_090"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.42,
+      "total_matches": 121
+    },
+    {
+      "query_id": "Q008",
+      "query": "Speed post service conditions",
+      "category": "speed_post",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_098"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_118",
+        "DOC2_REG_106",
+        "DOC2_REG_117",
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_01"
+      ],
+      "recall_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "reciprocal_rank": 0.0,
+      "ndcg_at_5": 0.0,
+      "first_relevant_rank": null,
+      "latency_ms": 3.96,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q009",
+      "query": "Speed post document transmission",
+      "category": "speed_post",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_099"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_098",
+        "DOC2_REG_099",
+        "DOC2_REG_118",
+        "DOC2_REG_SCHEDULE_I",
+        "DOC2_REG_117"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 0.5,
+      "ndcg_at_5": 0.5213,
+      "first_relevant_rank": 2,
+      "latency_ms": 4.49,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q010",
+      "query": "Speed post parcel regulations",
+      "category": "speed_post",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_100"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_100",
+        "DOC2_AMEND_2025_04",
+        "DOC2_REG_098",
+        "DOC2_REG_002",
+        "DOC2_REG_SCHEDULE_IV"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.9639,
+      "first_relevant_rank": 1,
+      "latency_ms": 4.06,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q011",
+      "query": "India post parcel",
+      "category": "parcel",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_096"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_096",
+        "DOC2_REG_100",
+        "DOC2_REG_092",
+        "DOC2_REG_002",
+        "DOC2_REG_128"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 3.27,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q012",
+      "query": "Failure to take delivery of Post Restante parcel",
+      "category": "parcel",
+      "difficulty": "hard",
+      "expected_chunk_ids": [
+        "DOC2_REG_127"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_127",
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_01",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 8.52,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q013",
+      "query": "Registration of domestic items",
+      "category": "registration",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_132"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_132",
+        "DOC2_REG_SCHEDULE_IV",
+        "DOC2_REG_138",
+        "DOC2_REG_SCHEDULE_I",
+        "DOC2_AMEND_2025_04"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.68,
+      "total_matches": 143
+    },
+    {
+      "query_id": "Q014",
+      "query": "Registration of international items",
+      "category": "registration",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_138"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_138",
+        "DOC2_REG_SCHEDULE_IV",
+        "DOC2_REG_002",
+        "DOC2_REG_106",
+        "DOC1_RULE_02"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.49,
+      "total_matches": 151
+    },
+    {
+      "query_id": "Q015",
+      "query": "Insurance of domestic items",
+      "category": "insurance",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_133"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_133",
+        "DOC2_REG_075",
+        "DOC2_REG_140",
+        "DOC2_AMEND_2025_04",
+        "DOC2_REG_SCHEDULE_IV"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.49,
+      "total_matches": 147
+    },
+    {
+      "query_id": "Q016",
+      "query": "Compensation in respect of insured items",
+      "category": "insurance",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_074"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_074",
+        "DOC2_REG_080",
+        "DOC2_REG_133",
+        "DOC2_REG_142",
+        "DOC2_REG_075"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.9639,
+      "first_relevant_rank": 1,
+      "latency_ms": 3.09,
+      "total_matches": 150
+    },
+    {
+      "query_id": "Q017",
+      "query": "Interception, detention and disposal of items under the Act",
+      "category": "interception",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_ACT_SECTION_09"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_ACT_SECTION_09",
+        "DOC1_RULE_16",
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 6.1,
+      "total_matches": 157
+    },
+    {
+      "query_id": "Q018",
+      "query": "Interception, detention and opening of item by authorised officers",
+      "category": "interception",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC1_RULE_16"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC1_RULE_16",
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_01",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 7.88,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q019",
+      "query": "Disposal of intercepted items",
+      "category": "interception",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_034"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_034",
+        "DOC2_ACT_SECTION_09",
+        "DOC1_RULE_16",
+        "DOC1_RULE_02",
+        "DOC1_RULE_11"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.61,
+      "total_matches": 136
+    },
+    {
+      "query_id": "Q020",
+      "query": "Prohibition of domestic items",
+      "category": "prohibited_material",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_025"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_025",
+        "DOC2_REG_073",
+        "DOC2_REG_078",
+        "DOC2_REG_133",
+        "DOC1_RULE_02"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.87,
+      "total_matches": 141
+    },
+    {
+      "query_id": "Q021",
+      "query": "Items suspected to contain dangerous substances",
+      "category": "prohibited_material",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_035"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_035",
+        "DOC1_RULE_02",
+        "DOC1_RULE_11",
+        "DOC1_RULE_13",
+        "DOC1_RULE_14"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 6.07,
+      "total_matches": 138
+    },
+    {
+      "query_id": "Q022",
+      "query": "SCHEDULE I: POSTAGE AND FEE FOR DOMESTIC ITEMS",
+      "category": "schedules",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_SCHEDULE_I"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_SCHEDULE_I",
+        "DOC2_REG_SCHEDULE_IV",
+        "DOC2_AMEND_2025_04",
+        "DOC2_REG_136",
+        "DOC2_REG_138"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 5.54,
+      "total_matches": 168
+    },
+    {
+      "query_id": "Q023",
+      "query": "SCHEDULE II: POSTAGE AND FEE FOR OTHER POSTAL ITEMS",
+      "category": "schedules",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_SCHEDULE_II"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_SCHEDULE_II",
+        "DOC2_REG_SCHEDULE_III",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03",
+        "DOC1_RULE_05"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 7.83,
+      "total_matches": 185
+    },
+    {
+      "query_id": "Q024",
+      "query": "SCHEDULE III: POSTAGE AND FEE FOR INTERNATIONAL ITEMS",
+      "category": "schedules",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_SCHEDULE_III"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_SCHEDULE_III",
+        "DOC1_RULE_02",
+        "DOC1_RULE_07",
+        "DOC1_RULE_08",
+        "DOC1_RULE_09"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 6.36,
+      "total_matches": 172
+    },
+    {
+      "query_id": "Q025",
+      "query": "SCHEDULE IV: VALUE ADDED SERVICES",
+      "category": "schedules",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_SCHEDULE_IV"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_SCHEDULE_IV",
+        "DOC2_REG_136",
+        "DOC2_AMEND_2025_04",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 4.58,
+      "total_matches": 112
+    },
+    {
+      "query_id": "Q026",
+      "query": "SCHEDULE V: MONEY REMITTANCE SERVICES",
+      "category": "schedules",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_SCHEDULE_V"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_SCHEDULE_V",
+        "DOC2_REG_145",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03",
+        "DOC1_RULE_04"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 9.99,
+      "total_matches": 111
+    },
+    {
+      "query_id": "Q027",
+      "query": "Domestic money order",
+      "category": "money_services",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_REG_145"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_145",
+        "DOC2_REG_SCHEDULE_V",
+        "DOC1_RULE_03",
+        "DOC1_RULE_16",
+        "DOC2_ACT_SECTION_16"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.7262,
+      "first_relevant_rank": 1,
+      "latency_ms": 1.87,
+      "total_matches": 62
+    },
+    {
+      "query_id": "Q028",
+      "query": "Payee's name essential for money order remittance",
+      "category": "money_services",
+      "difficulty": "hard",
+      "expected_chunk_ids": [
+        "DOC2_REG_161"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_03",
+        "DOC1_RULE_09",
+        "DOC1_RULE_16",
+        "DOC2_ACT_SECTION_07"
+      ],
+      "recall_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "reciprocal_rank": 0.0,
+      "ndcg_at_5": 0.0,
+      "first_relevant_rank": null,
+      "latency_ms": 9.42,
+      "total_matches": 88
+    },
+    {
+      "query_id": "Q029",
+      "query": "Gyan Post Second Amendment Regulations",
+      "category": "gyan_post",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_AMEND_2025_02"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_AMEND_2025_02",
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_01",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 1.0,
+      "first_relevant_rank": 1,
+      "latency_ms": 6.67,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q030",
+      "query": "Speed Post Document Fourth Amendment",
+      "category": "amendments",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_AMEND_2025_04"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_AMEND_2025_04",
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_01",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 9.42,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q031",
+      "query": "Standards for addressing and postcodes",
+      "category": "pin_code",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC1_RULE_11",
+        "DOC2_ACT_SECTION_05"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_ACT_SECTION_05",
+        "DOC1_RULE_11",
+        "DOC2_REG_021",
+        "DOC1_RULE_03",
+        "DOC1_RULE_14"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.9073,
+      "first_relevant_rank": 1,
+      "latency_ms": 2.02,
+      "total_matches": 62
+    },
+    {
+      "query_id": "Q032",
+      "query": "Literature for blind postage exemption",
+      "category": "postal_services",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_115",
+        "DOC2_REG_093"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_SCHEDULE_I",
+        "DOC2_REG_115",
+        "DOC1_RULE_07",
+        "DOC1_RULE_08",
+        "DOC1_RULE_09"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 0.5,
+      "ndcg_at_5": 0.351,
+      "first_relevant_rank": 2,
+      "latency_ms": 2.82,
+      "total_matches": 83
+    },
+    {
+      "query_id": "Q033",
+      "query": "Postage on unaccountable items and unpaid items",
+      "category": "tariffs",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_REG_006"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_REG_006",
+        "DOC1_RULE_02",
+        "DOC1_RULE_07",
+        "DOC1_RULE_08",
+        "DOC1_RULE_09"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 7.78,
+      "total_matches": 160
+    },
+    {
+      "query_id": "Q034",
+      "query": "Exemption from liability under Post Office Act",
+      "category": "administration",
+      "difficulty": "easy",
+      "expected_chunk_ids": [
+        "DOC2_ACT_SECTION_10"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC2_ACT_SECTION_10",
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_01",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03"
+      ],
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.8262,
+      "first_relevant_rank": 1,
+      "latency_ms": 10.65,
+      "total_matches": 228
+    },
+    {
+      "query_id": "Q035",
+      "query": "Repeal and savings of Post Office Act 1898",
+      "category": "administration",
+      "difficulty": "medium",
+      "expected_chunk_ids": [
+        "DOC2_ACT_SECTION_16"
+      ],
+      "retrieved_chunk_ids": [
+        "DOC1_PREAMBLE",
+        "DOC1_RULE_01",
+        "DOC1_RULE_02",
+        "DOC1_RULE_03",
+        "DOC1_RULE_04"
+      ],
+      "recall_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "reciprocal_rank": 0.0,
+      "ndcg_at_5": 0.0,
+      "first_relevant_rank": null,
+      "latency_ms": 11.22,
+      "total_matches": 228
+    }
+  ]
+}
