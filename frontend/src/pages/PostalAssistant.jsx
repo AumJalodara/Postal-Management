@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, Send, BookOpen, AlertTriangle, Loader2, FileText, ChevronDown, ChevronUp, Shield } from 'lucide-react';
+import { MessageSquare, Send, BookOpen, AlertTriangle, Loader2, FileText, ChevronDown, ChevronUp, Shield, Globe, ExternalLink, Info } from 'lucide-react';
 import api from '../services/api';
 
 export default function PostalAssistant() {
@@ -60,6 +60,8 @@ export default function PostalAssistant() {
 
   const exampleQuestions = [
     "What does Section 9 of the Post Office Act say?",
+    "How to apply for passport in post office?",
+    "What are the Post Office Savings Account & MIS interest rates?",
     "What are the conditions for Speed Post service?",
     "What is the procedure for delivering damaged items?",
     "What are the Smart Delivery Box regulations?",
@@ -165,12 +167,37 @@ export default function PostalAssistant() {
               </div>
             ) : (
               <>
+                {/* Non-Statutory / Web-Enhanced Banner */}
+                {result.not_in_docs && (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '12px',
+                    padding: '14px 16px',
+                    backgroundColor: '#eff6ff',
+                    border: '1px solid #bfdbfe',
+                    borderLeft: '4px solid #3b82f6',
+                    borderRadius: '8px',
+                    marginBottom: '16px',
+                    fontSize: '0.88rem',
+                    color: '#1e40af'
+                  }}>
+                    <Info size={18} style={{ flexShrink: 0, marginTop: '2px', color: '#2563eb' }} />
+                    <div>
+                      <strong style={{ display: 'block', marginBottom: '2px' }}>Operational / Citizen Service Inquiry</strong>
+                      <span style={{ color: '#1e3a8a' }}>
+                        This specific query is not addressed in the statutory postal legal acts. The answer below is synthesized from live verified India Post public guidelines and official portals.
+                      </span>
+                    </div>
+                  </div>
+                )}
+
                 {/* AI-Generated Answer */}
                 <div className="assistant-answer-section">
                   <div className="assistant-section-header">
-                    <div className="ai-badge">
-                      <MessageSquare size={14} />
-                      AI-Generated Explanation
+                    <div className="ai-badge" style={result.web_search_used ? { backgroundColor: '#e0f2fe', color: '#0369a1', borderColor: '#bae6fd' } : undefined}>
+                      {result.web_search_used ? <Globe size={14} /> : <MessageSquare size={14} />}
+                      {result.not_in_docs ? 'Web-Enhanced Postal Information' : (result.web_search_used ? 'Statutory & Web-Grounded Answer' : 'AI-Generated Explanation')}
                     </div>
                     {result.has_invalid_citations && (
                       <span className="assistant-warning-badge">
@@ -178,16 +205,84 @@ export default function PostalAssistant() {
                       </span>
                     )}
                   </div>
-                  <div className="assistant-answer-text">
+                  <div className="assistant-answer-text" style={{ whiteSpace: 'pre-line', lineHeight: '1.7' }}>
                     {result.answer}
                   </div>
                   <div className="assistant-meta">
-                    <span>{result.retrieved_chunks} source{result.retrieved_chunks !== 1 ? 's' : ''} retrieved</span>
+                    <span>{result.retrieved_chunks} statutory source{result.retrieved_chunks !== 1 ? 's' : ''} retrieved</span>
+                    {result.web_sources && result.web_sources.length > 0 && (
+                      <span style={{ color: '#0284c7', fontWeight: 600 }}>
+                        • {result.web_sources.length} web source{result.web_sources.length !== 1 ? 's' : ''} referenced
+                      </span>
+                    )}
                     <span>Mode: {result.retrieval_mode}</span>
                   </div>
                 </div>
 
-                {/* Official Source Citations */}
+                {/* Verified Web Sources Section */}
+                {result.web_sources && result.web_sources.length > 0 && (
+                  <div className="assistant-sources-section" style={{ marginTop: '24px' }}>
+                    <div className="assistant-section-header">
+                      <div className="source-badge" style={{ backgroundColor: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0' }}>
+                        <Globe size={14} />
+                        Verified Postal Web & Official Portal Sources
+                      </div>
+                    </div>
+                    <div className="web-sources-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px', marginTop: '12px' }}>
+                      {result.web_sources.map((ws) => (
+                        <div key={ws.source_id} style={{
+                          backgroundColor: '#ffffff',
+                          border: '1px solid #e2e8f0',
+                          borderRadius: '8px',
+                          padding: '14px',
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between'
+                        }}>
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                              <span style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#0284c7', color: '#fff', padding: '2px 8px', borderRadius: '4px' }}>
+                                [Web-{ws.source_id}]
+                              </span>
+                              <span style={{ fontSize: '0.72rem', backgroundColor: '#f1f5f9', color: '#475569', padding: '2px 6px', borderRadius: '4px', fontWeight: 500 }}>
+                                {ws.source_type || 'Official Portal'}
+                              </span>
+                            </div>
+                            <div style={{ fontWeight: 600, fontSize: '0.92rem', color: '#0f172a', marginBottom: '6px' }}>
+                              {ws.title}
+                            </div>
+                            {ws.snippet && (
+                              <p style={{ fontSize: '0.82rem', color: '#64748b', margin: '0 0 12px 0', lineHeight: '1.45' }}>
+                                {ws.snippet}
+                              </p>
+                            )}
+                          </div>
+                          <a
+                            href={ws.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              fontSize: '0.82rem',
+                              color: '#0284c7',
+                              fontWeight: 600,
+                              textDecoration: 'none',
+                              paddingTop: '8px',
+                              borderTop: '1px solid #f1f5f9'
+                            }}
+                          >
+                            Visit Official Portal <ExternalLink size={13} />
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Official Statutory Source Citations */}
                 {result.citations && result.citations.length > 0 && (
                   <div className="assistant-sources-section">
                     <div className="assistant-section-header">

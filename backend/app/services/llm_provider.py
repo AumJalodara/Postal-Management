@@ -78,6 +78,13 @@ class MockLLMProvider(BaseLLMProvider):
         source_ids = re.findall(r'<OFFICIAL_POSTAL_SOURCE id="(\d+)">', system_prompt)
 
         if not source_ids:
+            web_sources = re.findall(r'\[Web-(\d+)\]', system_prompt)
+            if web_sources:
+                return (
+                    "**Note:** This specific information is not covered in the indexed statutory postal regulations. "
+                    "Based on verified postal web sources [Web-1], detailed operational guidelines and citizen procedures "
+                    "are available through the official portal."
+                )
             return (
                 "I could not find sufficient information in the available "
                 "official postal documents to answer this question reliably."
