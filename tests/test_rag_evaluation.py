@@ -198,13 +198,21 @@ class TestRAGEvaluationMetrics:
         assert response.retrieved_chunks > 0
 
     def test_refusal_behavior_no_results(self):
-        """12. Refusal behavior when retrieval returns zero results."""
+        """12. Refusal/fallback behavior when retrieval returns zero results.
+
+        With web-enhanced RAG, zero retrieval results triggers a web search
+        fallback. The system either:
+        (a) Falls back to web sources (web_search_used=True, not_in_docs=True), OR
+        (b) Returns insufficient_evidence=True if web search also fails.
+        In both cases, the response must NOT be grounded on document evidence.
+        """
         service = self._create_rag_service([])
         response = service.ask(query="What is the recipe for pizza?")
 
-        assert response.insufficient_evidence is True
         assert response.grounded is False
-        assert "could not find sufficient information" in response.answer.lower()
+        assert response.retrieved_chunks == 0
+        # Either web fallback was used or insufficient evidence was flagged
+        assert response.web_search_used is True or response.insufficient_evidence is True
 
     def test_retrieval_vs_generation_metrics_distinction(self):
         """13. Retrieval metrics are separate from generation metrics.
