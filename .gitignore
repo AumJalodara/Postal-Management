@@ -93,9 +93,10 @@ pnpm-debug.log*
 lerna-debug.log*
 .npm
 
-# --- Logs ---
+# --- Logs & Dynamic Uploads ---
 *.log
 logs/
+data/postal_documents/uploaded/
 
 # --- OS and IDE specific files ---
 .DS_Store

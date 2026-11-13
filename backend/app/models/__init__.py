@@ -6,6 +6,7 @@ from app.models.pickup import PickupRequest, PickupStatusHistory
 from app.models.tracking import ParcelTrackingEvent, ParcelQRCode, DeliveryOTP, PostalLocation
 from app.models.postal_chunk import PostalDocumentChunk
 from app.models.operational_history import OperationalHistory
+from app.models.revoked_token import RevokedToken
 
 __all__ = [
     "UserRole",
@@ -24,4 +25,5 @@ __all__ = [
     "PostalLocation",
     "PostalDocumentChunk",
     "OperationalHistory",
+    "RevokedToken",
 ]

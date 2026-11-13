@@ -1,16 +1,19 @@
 import logging
+from datetime import datetime, timezone, timedelta
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
 from app.database.connection import get_db
 from app.config import settings
 from app.auth.limiter import limiter
 from app.models.user import User
+from app.models.revoked_token import RevokedToken
 from app.models.enums import UserRole
-from app.schemas.user import UserRegister, UserLogin, UserResponse, TokenResponse
+from app.schemas.user import UserRegister, UserLogin, UserUpdate, UserResponse, TokenResponse
 from app.schemas.common import ApiResponse
-from app.auth.security import hash_password, verify_password, create_access_token
-from app.auth.dependencies import get_current_user
+from app.auth.security import hash_password, verify_password, create_access_token, decode_access_token, get_token_hash
+from app.auth.dependencies import get_current_user, security_scheme
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -89,3 +92,69 @@ def login(request: Request, user_in: UserLogin, db: Session = Depends(get_db)):
 def get_me(current_user: User = Depends(get_current_user)):
     """Return profile for currently authenticated user."""
     return ApiResponse.ok(data=UserResponse.model_validate(current_user))
+
+
+@router.put("/me", response_model=ApiResponse[UserResponse])
+def update_me(
+    user_update: UserUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Update permitted profile fields (name, phone) for the currently authenticated user.
+    Protected fields such as role, email, and is_active cannot be modified here.
+    """
+    updated = False
+    if user_update.name is not None and user_update.name.strip():
+        current_user.name = user_update.name.strip()
+        updated = True
+
+    if user_update.phone is not None and user_update.phone.strip():
+        current_user.phone = user_update.phone.strip()
+        updated = True
+
+    if updated:
+        db.commit()
+        db.refresh(current_user)
+        logger.info(f"User #{current_user.id} updated their profile.")
+
+    return ApiResponse.ok(data=UserResponse.model_validate(current_user))
+
+
+@router.post("/logout", response_model=ApiResponse[dict])
+def logout(
+    credentials: HTTPAuthorizationCredentials = Depends(security_scheme),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Securely revokes the current JWT bearer token, preventing subsequent access even
+    if the token is copied or retained client-side.
+    """
+    if credentials and credentials.credentials:
+        token = credentials.credentials
+        try:
+            payload = decode_access_token(token)
+            exp_ts = payload.get("exp")
+            if exp_ts:
+                expires_at = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
+            else:
+                expires_at = datetime.now(timezone.utc) + timedelta(minutes=settings.JWT_EXPIRATION_MINUTES)
+        except Exception:
+            expires_at = datetime.now(timezone.utc) + timedelta(minutes=settings.JWT_EXPIRATION_MINUTES)
+
+        token_hash = get_token_hash(token)
+        existing = db.query(RevokedToken).filter(RevokedToken.token_hash == token_hash).first()
+        if not existing:
+            revocation_entry = RevokedToken(
+                token_hash=token_hash,
+                expires_at=expires_at
+            )
+            db.add(revocation_entry)
+            
+            # Prune old expired tokens from the revocation table
+            db.query(RevokedToken).filter(RevokedToken.expires_at < datetime.now(timezone.utc)).delete()
+            db.commit()
+            logger.info(f"User #{current_user.id} logged out. Token revoked.")
+
+    return ApiResponse.ok(data={"message": "Logged out successfully. Token revoked."})

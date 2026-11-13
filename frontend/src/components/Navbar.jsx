@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Package, Truck, LogOut, User, Send, ListOrdered, Calendar, Search, QrCode, ShieldCheck, MessageSquare } from 'lucide-react';
+import { Package, Truck, LogOut, User, Send, ListOrdered, Calendar, Search, QrCode, ShieldCheck, MessageSquare, Settings } from 'lucide-react';
+import api from '../services/api';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -8,10 +9,16 @@ export default function Navbar() {
   const userJson = localStorage.getItem('user');
   const user = userJson ? JSON.parse(userJson) : null;
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await api.post('/auth/logout');
+    } catch (err) {
+      console.warn('Backend logout notification skipped or errored:', err);
+    } finally {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
   };
 
   return (
@@ -116,10 +123,16 @@ export default function Navbar() {
               )}
 
               <div className="nav-user">
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{user.name}</span>
+                <Link
+                  to="/profile"
+                  style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+                  title="View and edit profile"
+                >
+                  <span style={{ fontSize: '0.85rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <User size={13} /> {user.name}
+                  </span>
                   <span className="user-badge">{user.role}</span>
-                </div>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="btn btn-outline btn-sm"

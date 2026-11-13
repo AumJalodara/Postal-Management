@@ -8,7 +8,8 @@ from app.database.connection import get_db
 from app.models.user import User
 from app.models.delivery_agent import DeliveryAgent
 from app.models.enums import UserRole
-from app.auth.security import decode_access_token
+from app.models.revoked_token import RevokedToken
+from app.auth.security import decode_access_token, get_token_hash
 
 security_scheme = HTTPBearer(auto_error=False)
 
@@ -43,6 +44,15 @@ def get_current_user(
             detail={"code": "INVALID_TOKEN", "message": "Could not validate authentication token."}
         )
 
+    # Check server-side token revocation
+    token_hash = get_token_hash(token)
+    is_revoked = db.query(RevokedToken).filter(RevokedToken.token_hash == token_hash).first()
+    if is_revoked:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail={"code": "TOKEN_REVOKED", "message": "This session has been logged out. Please log in again."}
+        )
+
     user = db.query(User).filter(User.id == int(user_id)).first()
     if not user:
         raise HTTPException(
@@ -59,8 +69,15 @@ def get_current_user(
 
 
 def require_roles(*allowed_roles: UserRole):
+    # Support staff and agent interoperability for operational workflows
+    expanded_roles = set(allowed_roles)
+    if UserRole.AGENT in expanded_roles:
+        expanded_roles.add(UserRole.STAFF)
+    elif UserRole.STAFF in expanded_roles:
+        expanded_roles.add(UserRole.AGENT)
+
     def role_checker(current_user: User = Depends(get_current_user)) -> User:
-        if current_user.role not in allowed_roles:
+        if current_user.role not in expanded_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail={

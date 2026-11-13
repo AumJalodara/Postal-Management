@@ -239,3 +239,33 @@ class DenseRetrievalManager:
             ))
 
         return results, encode_time_ms, similarity_time_ms
+
+    def add_chunks(self, new_chunk_ids: List[str], texts: List[str]) -> int:
+        """
+        Dynamically encodes and appends new chunks to the in-memory index
+        for immediate dense and hybrid search availability without restarting the service.
+        """
+        if not self.is_available or self.model is None or not new_chunk_ids or not texts:
+            return 0
+
+        try:
+            new_embs = self.model.encode(
+                texts,
+                normalize_embeddings=True,
+                show_progress_bar=False
+            ).astype(np.float32)
+
+            if self.chunk_ids is not None and self.embeddings is not None:
+                new_ids_arr = np.array(new_chunk_ids, dtype=self.chunk_ids.dtype)
+                self.chunk_ids = np.concatenate([self.chunk_ids, new_ids_arr])
+                self.embeddings = np.vstack([self.embeddings, new_embs])
+            else:
+                self.chunk_ids = np.array(new_chunk_ids)
+                self.embeddings = new_embs
+                self.is_available = True
+
+            logger.info(f"DenseRetrievalManager added {len(new_chunk_ids)} dynamic chunks. Total chunks: {len(self.chunk_ids)}")
+            return len(new_chunk_ids)
+        except Exception as e:
+            logger.error(f"Failed to dynamically add chunks to DenseRetrievalManager: {e}")
+            return 0

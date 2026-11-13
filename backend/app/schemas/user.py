@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel, EmailStr, ConfigDict, field_validator
 from app.models.enums import UserRole
 from app.validation.validators import validate_name, validate_phone
@@ -43,6 +44,21 @@ class UserLogin(BaseModel):
     @classmethod
     def normalize_email(cls, v: EmailStr) -> str:
         return str(v).lower().strip()
+
+
+class UserUpdate(BaseModel):
+    name: Optional[str] = None
+    phone: Optional[str] = None
+
+    @field_validator("name")
+    @classmethod
+    def check_name(cls, v: Optional[str]) -> Optional[str]:
+        return validate_name(v) if v is not None else v
+
+    @field_validator("phone")
+    @classmethod
+    def check_phone(cls, v: Optional[str]) -> Optional[str]:
+        return validate_phone(v) if v is not None else v
 
 
 class TokenResponse(BaseModel):

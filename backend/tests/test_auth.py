@@ -90,3 +90,73 @@ def test_auth_missing_or_invalid_token(client):
     r2 = client.get("/api/v1/auth/me", headers={"Authorization": "Bearer invalid.jwt.string"})
     assert r2.status_code == 401
     assert r2.json()["error"]["code"] == "INVALID_TOKEN"
+
+
+def test_update_user_profile(client, seed_users):
+    # Login with seeded citizen
+    email = "rahul.kumar@example.com"
+    login_res = client.post("/api/v1/auth/login", json={
+        "email": email,
+        "password": "Password@123"
+    })
+    assert login_res.status_code == 200
+    token = login_res.json()["data"]["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    # Successful update of name and phone
+    update_res = client.put("/api/v1/auth/me", headers=headers, json={
+        "name": "Rahul Updated",
+        "phone": "9876599999",
+        "role": "ADMIN",  # Should be ignored / protected
+        "email": "hacked@example.com"  # Should be ignored / protected
+    })
+    assert update_res.status_code == 200
+    updated_data = update_res.json()["data"]
+    assert updated_data["name"] == "Rahul Updated"
+    assert updated_data["phone"] == "9876599999"
+    assert updated_data["email"] == email  # Protected
+    assert updated_data["role"] == "CITIZEN"  # Protected
+
+    # Verify persistence via GET /me
+    me_res = client.get("/api/v1/auth/me", headers=headers)
+    assert me_res.status_code == 200
+    assert me_res.json()["data"]["name"] == "Rahul Updated"
+    assert me_res.json()["data"]["phone"] == "9876599999"
+
+
+def test_logout_and_jwt_revocation(client, seed_users):
+    # Login with admin
+    email = "admin@postal.gov.in"
+    login_res = client.post("/api/v1/auth/login", json={
+        "email": email,
+        "password": "Password@123"
+    })
+    assert login_res.status_code == 200
+    token = login_res.json()["data"]["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    # Verify access before logout
+    before_res = client.get("/api/v1/auth/me", headers=headers)
+    assert before_res.status_code == 200
+
+    # Logout
+    logout_res = client.post("/api/v1/auth/logout", headers=headers)
+    assert logout_res.status_code == 200
+    assert logout_res.json()["success"] is True
+
+    # Attempt to access protected endpoint with the revoked token
+    after_res = client.get("/api/v1/auth/me", headers=headers)
+    assert after_res.status_code == 401
+    assert after_res.json()["error"]["code"] == "TOKEN_REVOKED"
+
+    # Login again produces a fresh valid token
+    new_login_res = client.post("/api/v1/auth/login", json={
+        "email": email,
+        "password": "Password@123"
+    })
+    assert new_login_res.status_code == 200
+    new_token = new_login_res.json()["data"]["access_token"]
+    new_headers = {"Authorization": f"Bearer {new_token}"}
+    new_access_res = client.get("/api/v1/auth/me", headers=new_headers)
+    assert new_access_res.status_code == 200
+    assert new_access_res.json()["data"]["email"] == email

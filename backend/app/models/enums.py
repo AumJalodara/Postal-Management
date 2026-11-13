@@ -2,8 +2,18 @@ import enum
 
 
 class UserRole(str, enum.Enum):
+    """
+    Role-Based Access Control (RBAC) Enumeration.
+    
+    Architecture & Role Alignment:
+    - CITIZEN: Customer / Citizen end-user accessing parcel booking, tracking, and pickup requests.
+    - AGENT: Field Delivery Personnel responsible for doorstep pickups, transit dispatch, and OTP delivery.
+    - STAFF: Postal Counter Staff & Station Clerks responsible for booking oversight, sorting, and station management.
+    - ADMIN: Postal Operations Supervisors & System Administrators with fleet and document upload controls.
+    """
     CITIZEN = "CITIZEN"
     AGENT = "AGENT"
+    STAFF = "STAFF"
     ADMIN = "ADMIN"
 
 

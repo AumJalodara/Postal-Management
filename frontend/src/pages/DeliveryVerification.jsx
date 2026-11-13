@@ -18,6 +18,7 @@ export default function DeliveryVerification() {
   const [successNotice, setSuccessNotice] = useState('');
   const [successData, setSuccessData] = useState(null);
   const hasRequestedOtpRef = useRef(false);
+  const enableDemoHelpers = import.meta.env.VITE_ENABLE_DEMO_HELPERS === 'true';
 
   const parseUtcExpiry = (isoString) => {
     if (!isoString) return null;
@@ -256,7 +257,7 @@ export default function DeliveryVerification() {
                     </button>
                   </div>
 
-                  {testOtp && (
+                  {enableDemoHelpers && testOtp && (
                     <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: `1px dashed ${isExpired ? '#fca5a5' : '#86efac'}`, fontSize: '0.8rem', color: isExpired ? '#991b1b' : '#14532d', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                       <strong>Demo / Testing Helper:</strong> Recipient OTP is{' '}
                       <button

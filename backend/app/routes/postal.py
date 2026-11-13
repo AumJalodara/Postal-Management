@@ -10,10 +10,17 @@ Supports:
 Also provides grounded RAG via POST /ask.
 """
 
-from typing import Optional, List
-from fastapi import APIRouter, Depends, Query, HTTPException, Request
+from typing import Optional, List, Dict, Any, Tuple
+from io import BytesIO
+from pathlib import Path
+import re
+import time
+import logging
+import pypdf
+from fastapi import APIRouter, Depends, Query, HTTPException, Request, File, UploadFile, Form
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.database.connection import get_db
 from app.config import settings
@@ -30,6 +37,13 @@ from app.services.postal_retrieval_service import (
 )
 from app.services.rag_synthesis_service import RAGSynthesisService
 from app.services.llm_provider import LLMProviderError
+from app.models.user import User
+from app.models.enums import UserRole
+from app.models.postal_chunk import PostalDocumentChunk
+from app.auth.dependencies import require_roles
+from app.services.dense_retrieval_service import DenseRetrievalManager
+
+logger = logging.getLogger("smart_postal.postal_routes")
 
 router = APIRouter(prefix="/postal", tags=["Postal Retrieval"])
 
@@ -296,5 +310,254 @@ def get_available_pickup_hubs(db: Session = Depends(get_db)):
             seen.add(pin)
 
     return ApiResponse.ok(data=hubs)
+
+
+# ==============================================================================
+# OFFICIAL POSTAL DOCUMENT INGESTION & KNOWLEDGE BASE MANAGEMENT
+# ==============================================================================
+
+MAX_UPLOAD_SIZE = 15 * 1024 * 1024  # 15 MB max upload limit
+
+
+def chunk_pdf_pages(pages_text: List[Tuple[int, str]]) -> List[Dict[str, Any]]:
+    """
+    Structure-aware statutory chunking for uploaded official postal documents.
+    Preserves exact page numbering, detected section/rule headings, and context windows.
+    """
+    chunks: List[Dict[str, Any]] = []
+
+    for page_num, raw_text in pages_text:
+        text = raw_text.strip()
+        if not text:
+            continue
+
+        paragraphs = [p.strip() for p in re.split(r'\n\s*\n', text) if p.strip()]
+        current_chunk_paragraphs: List[str] = []
+        current_word_count = 0
+        current_heading = f"Page {page_num} Statutory Content"
+
+        for para in paragraphs:
+            heading_match = re.match(
+                r'^(?:Section|Rule|Regulation|Chapter|Clause|Schedule)\s+([A-Za-z0-9\.\-]+)[\.\:\s\-]+([^\n]+)',
+                para,
+                re.IGNORECASE
+            )
+            if heading_match:
+                if current_chunk_paragraphs:
+                    chunk_text = "\n\n".join(current_chunk_paragraphs)
+                    chunks.append({
+                        "heading": current_heading,
+                        "text": chunk_text,
+                        "page": page_num
+                    })
+                    current_chunk_paragraphs = []
+                    current_word_count = 0
+                current_heading = para[:120].strip()
+
+            current_chunk_paragraphs.append(para)
+            current_word_count += len(para.split())
+
+            if current_word_count >= 250:
+                chunk_text = "\n\n".join(current_chunk_paragraphs)
+                chunks.append({
+                    "heading": current_heading,
+                    "text": chunk_text,
+                    "page": page_num
+                })
+                current_chunk_paragraphs = []
+                current_word_count = 0
+
+        if current_chunk_paragraphs:
+            chunk_text = "\n\n".join(current_chunk_paragraphs)
+            chunks.append({
+                "heading": current_heading,
+                "text": chunk_text,
+                "page": page_num
+            })
+
+    return chunks
+
+
+@router.get("/documents", response_model=ApiResponse[List[dict]])
+def get_indexed_postal_documents(db: Session = Depends(get_db)):
+    """
+    Returns aggregated metadata of all official postal documents indexed in the system knowledge base.
+    """
+    query = (
+        db.query(
+            PostalDocumentChunk.document_id,
+            PostalDocumentChunk.document_title,
+            PostalDocumentChunk.document_type,
+            PostalDocumentChunk.issuing_authority,
+            func.count(PostalDocumentChunk.id).label("chunk_count"),
+            func.min(PostalDocumentChunk.start_page).label("start_page"),
+            func.max(PostalDocumentChunk.end_page).label("end_page")
+        )
+        .group_by(
+            PostalDocumentChunk.document_id,
+            PostalDocumentChunk.document_title,
+            PostalDocumentChunk.document_type,
+            PostalDocumentChunk.issuing_authority
+        )
+        .order_by(PostalDocumentChunk.document_id)
+        .all()
+    )
+
+    docs = [
+        {
+            "document_id": row.document_id,
+            "document_title": row.document_title,
+            "document_type": row.document_type,
+            "issuing_authority": row.issuing_authority,
+            "chunk_count": row.chunk_count,
+            "pages": f"{row.start_page} - {row.end_page}" if row.start_page != row.end_page else str(row.start_page)
+        }
+        for row in query
+    ]
+    return ApiResponse.ok(data=docs)
+
+
+@router.post("/upload", response_model=ApiResponse[dict])
+async def upload_postal_document(
+    file: UploadFile = File(...),
+    title: Optional[str] = Form(None),
+    document_type: Optional[str] = Form("Official Regulations"),
+    issuing_authority: Optional[str] = Form("Ministry of Communications, Department of Posts"),
+    current_user: User = Depends(require_roles(UserRole.ADMIN)),
+    db: Session = Depends(get_db)
+):
+    """
+    Admin-only endpoint to upload and index official postal PDF documents.
+    Extracts pages via PyMuPDF/pypdf, executes structure-aware statutory chunking,
+    stores chunks in database, and updates dense semantic embeddings for instant search.
+    """
+    # 1. Validate file extension and MIME type
+    if not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(
+            status_code=400,
+            detail={"code": "INVALID_FILE_TYPE", "message": "Only official PDF documents (.pdf) are supported."}
+        )
+
+    # 2. Read and validate size
+    content = await file.read()
+    if len(content) == 0:
+        raise HTTPException(
+            status_code=400,
+            detail={"code": "EMPTY_FILE", "message": "Uploaded file is empty."}
+        )
+    if len(content) > MAX_UPLOAD_SIZE:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "code": "FILE_TOO_LARGE",
+                "message": f"File size exceeds maximum permitted limit of {MAX_UPLOAD_SIZE // (1024*1024)} MB."
+            }
+        )
+
+    # 3. Save copy in uploaded directory
+    upload_dir = Path("data/postal_documents/uploaded")
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    save_path = upload_dir / file.filename
+    try:
+        with open(save_path, "wb") as f:
+            f.write(content)
+    except Exception as e:
+        logger.warning(f"Could not persist raw PDF to disk: {e}")
+
+    # 4. Extract pages using pypdf
+    try:
+        reader = pypdf.PdfReader(BytesIO(content))
+        total_pages = len(reader.pages)
+        if total_pages == 0:
+            raise ValueError("PDF contains no readable pages.")
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail={"code": "PDF_PARSE_ERROR", "message": f"Failed to parse PDF document: {str(e)}"}
+        )
+
+    pages_text = []
+    for idx, page in enumerate(reader.pages, start=1):
+        txt = page.extract_text() or ""
+        if txt.strip():
+            pages_text.append((idx, txt))
+
+    if not pages_text:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "code": "NO_EXTRACTABLE_TEXT",
+                "message": "Could not extract text from document. Ensure the PDF contains digital text."
+            }
+        )
+
+    # 5. Structure-aware statutory chunking
+    raw_chunks = chunk_pdf_pages(pages_text)
+    if not raw_chunks:
+        raise HTTPException(
+            status_code=400,
+            detail={"code": "CHUNKING_FAILED", "message": "Unable to generate statutory chunks from extracted text."}
+        )
+
+    doc_id = f"DOC_UP_{int(time.time())}"
+    doc_title = title.strip() if (title and title.strip()) else file.filename.replace(".pdf", "").replace("_", " ").title()
+
+    new_chunks = []
+    new_chunk_ids = []
+    new_chunk_texts = []
+
+    for idx, c in enumerate(raw_chunks, start=1):
+        c_id = f"{doc_id}_C{idx:03d}"
+        legal_ref = f"{doc_title}, Part {c['page']}, Unit {idx}"
+        chunk_obj = PostalDocumentChunk(
+            chunk_id=c_id,
+            document_id=doc_id,
+            source_filename=file.filename,
+            document_title=doc_title,
+            document_type=document_type or "Official Regulations",
+            issuing_authority=issuing_authority or "Ministry of Communications, Department of Posts",
+            section_type="statute",
+            unit_number=str(idx),
+            heading=c["heading"][:250],
+            start_page=c["page"],
+            end_page=c["page"],
+            source_pages=[c["page"]],
+            legal_reference=legal_ref,
+            text=c["text"],
+            char_count=len(c["text"]),
+            word_count=len(c["text"].split()),
+            language="en",
+            extraction_method="pypdf_official_upload",
+            source_version="1.0.0",
+            content_type="legal_statute",
+            boundary_detection_method="statutory_section_or_window",
+            ocr_anomaly=False
+        )
+        new_chunks.append(chunk_obj)
+        new_chunk_ids.append(c_id)
+        new_chunk_texts.append(c["text"])
+
+    db.add_all(new_chunks)
+    db.commit()
+
+    # 6. Update DenseRetrievalManager index if available
+    indexed_dense_count = 0
+    try:
+        dense_mgr = DenseRetrievalManager.get_instance()
+        if dense_mgr.is_available:
+            indexed_dense_count = dense_mgr.add_chunks(new_chunk_ids, new_chunk_texts)
+    except Exception as e:
+        logger.warning(f"Could not index dense embeddings for new chunks: {e}")
+
+    return ApiResponse.ok(data={
+        "document_id": doc_id,
+        "document_title": doc_title,
+        "document_type": document_type,
+        "source_filename": file.filename,
+        "total_pages": total_pages,
+        "chunks_created": len(new_chunks),
+        "dense_embeddings_indexed": indexed_dense_count,
+        "status": "indexed"
+    })
 
 

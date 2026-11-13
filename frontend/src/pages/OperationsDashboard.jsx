@@ -3,12 +3,13 @@ import api from '../services/api';
 import { 
   Users, Truck, MapPin, Clock, History, AlertCircle, RefreshCw, Send,
   MessageSquare, UserCheck, Search, Activity, Package, DollarSign,
-  Eye, X, CheckCircle2, ExternalLink, Calendar, ShieldCheck, ArrowRight
+  Eye, X, CheckCircle2, ExternalLink, Calendar, ShieldCheck, ArrowRight,
+  FileText, UploadCloud, BookOpen, Database, Check
 } from 'lucide-react';
 import { getAgentByPin } from '../data/stateAgents';
 
 export default function OperationsDashboard() {
-  const [activeTab, setActiveTab] = useState('fleet'); // 'fleet' or 'citizens'
+  const [activeTab, setActiveTab] = useState('fleet'); // 'fleet', 'citizens', or 'documents'
 
   // Fleet & Agent State
   const [agents, setAgents] = useState([]);
@@ -42,6 +43,21 @@ export default function OperationsDashboard() {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState(null);
 
+  // Postal Knowledge Base & Documents State
+  const [documents, setDocuments] = useState([]);
+  const [loadingDocuments, setLoadingDocuments] = useState(false);
+  const [documentSearch, setDocumentSearch] = useState('');
+  const [uploadFile, setUploadFile] = useState(null);
+  const [uploadTitle, setUploadTitle] = useState('');
+  const [uploadType, setUploadType] = useState('Statutory Directive');
+  const [uploadAuthority, setUploadAuthority] = useState('Ministry of Communications, Department of Posts');
+  const [uploading, setUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(null);
+  const [uploadError, setUploadError] = useState(null);
+  const [testQuery, setTestQuery] = useState('');
+  const [testResults, setTestResults] = useState(null);
+  const [testingRetrieval, setTestingRetrieval] = useState(false);
+
   const aiChatEndRef = useRef(null);
 
   useEffect(() => {
@@ -49,6 +65,7 @@ export default function OperationsDashboard() {
     fetchPickups();
     fetchHistory();
     fetchCitizens();
+    fetchDocuments();
   }, []);
 
   useEffect(() => {
@@ -175,12 +192,78 @@ export default function OperationsDashboard() {
     }
   };
 
+  const fetchDocuments = async () => {
+    setLoadingDocuments(true);
+    try {
+      const res = await api.get('/postal/documents');
+      setDocuments(res.data?.data || []);
+    } catch (err) {
+      console.warn('Failed to fetch documents:', err);
+    } finally {
+      setLoadingDocuments(false);
+    }
+  };
+
+  const handleUploadDocument = async (e) => {
+    e.preventDefault();
+    if (!uploadFile) {
+      setUploadError('Please select an official PDF document.');
+      return;
+    }
+    setUploading(true);
+    setUploadError(null);
+    setUploadSuccess(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', uploadFile);
+      if (uploadTitle.trim()) formData.append('title', uploadTitle.trim());
+      formData.append('document_type', uploadType);
+      formData.append('issuing_authority', uploadAuthority);
+
+      const res = await api.post('/postal/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setUploadSuccess(res.data?.data);
+      setUploadFile(null);
+      setUploadTitle('');
+      fetchDocuments();
+    } catch (err) {
+      setUploadError(
+        err.response?.data?.error?.message ||
+        err.response?.data?.detail?.message ||
+        'Failed to upload and index document.'
+      );
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleTestRetrieval = async (e) => {
+    e.preventDefault();
+    if (!testQuery.trim()) return;
+    setTestingRetrieval(true);
+    try {
+      const res = await api.post('/postal/retrieve', {
+        query: testQuery.trim(),
+        top_k: 3,
+        retrieval_mode: 'hybrid'
+      });
+      setTestResults(res.data?.data?.results || []);
+    } catch (err) {
+      console.warn('Retrieval test error:', err);
+    } finally {
+      setTestingRetrieval(false);
+    }
+  };
+
   const handleRefresh = () => {
     setError(null);
     fetchAgents();
     fetchPickups();
     fetchHistory(1);
     fetchCitizens();
+    fetchDocuments();
     if (selectedAgentId) fetchAgentDetails(selectedAgentId);
   };
 
@@ -280,6 +363,40 @@ export default function OperationsDashboard() {
               }}
             >
               {citizenMetrics.total_registered_citizens} Registered
+            </span>
+          )}
+        </button>
+
+        <button
+          onClick={() => setActiveTab('documents')}
+          style={{
+            padding: '10px 20px',
+            fontSize: '0.96rem',
+            fontWeight: 700,
+            background: 'none',
+            border: 'none',
+            borderBottom: activeTab === 'documents' ? '3px solid #2563eb' : '3px solid transparent',
+            color: activeTab === 'documents' ? '#1e40af' : '#64748b',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 0.15s ease',
+          }}
+        >
+          <BookOpen size={18} /> Official Legal Gazette &amp; Ingestion
+          {documents.length > 0 && (
+            <span
+              style={{
+                background: '#e0e7ff',
+                color: '#3730a3',
+                padding: '2px 8px',
+                borderRadius: '12px',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+              }}
+            >
+              {documents.length} Docs
             </span>
           )}
         </button>
@@ -914,6 +1031,274 @@ export default function OperationsDashboard() {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* TAB 3: OFFICIAL LEGAL GAZETTE & DOCUMENT INGESTION */}
+      {/* ======================================================== */}
+      {activeTab === 'documents' && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1.5rem' }}>
+          {/* LEFT COLUMN: Upload & Index New Official PDF */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div className="card" style={{ padding: '1.5rem' }}>
+              <h3 style={{ borderBottom: '1px solid #eee', paddingBottom: '0.6rem', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#1e40af' }}>
+                <UploadCloud size={20} /> Ingest Postal Legal Document
+              </h3>
+              <p style={{ fontSize: '0.86rem', color: '#64748b', marginBottom: '1.2rem' }}>
+                Upload official gazette notifications, statutory acts, or regulations in PDF format.
+                The system extracts text, chunks into legal units, and indexes dense vector embeddings.
+              </p>
+
+              {uploadError && (
+                <div className="alert alert-error" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
+                  <AlertCircle size={16} />
+                  <span>{uploadError}</span>
+                </div>
+              )}
+
+              {uploadSuccess && (
+                <div className="alert alert-success" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
+                  <CheckCircle2 size={16} />
+                  <div>
+                    <strong>Successfully Indexed!</strong>
+                    <div style={{ marginTop: '4px', fontSize: '0.8rem' }}>
+                      {uploadSuccess.document_title} ({uploadSuccess.chunks_created} statutory chunks, {uploadSuccess.total_pages} pages).
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleUploadDocument} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div className="form-group">
+                  <label className="form-label" style={{ fontWeight: 600 }}>Select Official PDF File *</label>
+                  <input
+                    type="file"
+                    accept=".pdf,application/pdf"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      setUploadFile(file || null);
+                      if (file && !uploadTitle) {
+                        setUploadTitle(file.name.replace('.pdf', '').replace(/_/g, ' '));
+                      }
+                    }}
+                    className="form-control"
+                    style={{ padding: '8px' }}
+                    required
+                  />
+                  <small style={{ color: '#64748b', fontSize: '0.75rem' }}>Maximum allowed file size: 15 MB (.pdf only)</small>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" style={{ fontWeight: 600 }}>Official Document Title</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. The Post Office Act, 2023"
+                    value={uploadTitle}
+                    onChange={(e) => setUploadTitle(e.target.value)}
+                    className="form-control"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" style={{ fontWeight: 600 }}>Document Classification Type</label>
+                  <select
+                    value={uploadType}
+                    onChange={(e) => setUploadType(e.target.value)}
+                    className="form-control"
+                  >
+                    <option value="Statutory Act">Statutory Act</option>
+                    <option value="Official Regulations">Official Regulations</option>
+                    <option value="Statutory Rules">Statutory Rules</option>
+                    <option value="Amendment Regulations">Amendment Regulations</option>
+                    <option value="Executive Circular">Executive Circular / Notification</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" style={{ fontWeight: 600 }}>Issuing Authority</label>
+                  <input
+                    type="text"
+                    value={uploadAuthority}
+                    onChange={(e) => setUploadAuthority(e.target.value)}
+                    className="form-control"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={uploading || !uploadFile}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px' }}
+                >
+                  {uploading ? (
+                    <>
+                      <RefreshCw size={16} className="spin" />
+                      Parsing &amp; Vectorizing Chunks...
+                    </>
+                  ) : (
+                    <>
+                      <UploadCloud size={16} />
+                      Upload &amp; Index Document
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+
+            {/* Quick Test Retrieval Box */}
+            <div className="card" style={{ padding: '1.5rem' }}>
+              <h3 style={{ borderBottom: '1px solid #eee', paddingBottom: '0.6rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#059669' }}>
+                <Search size={18} /> Test Hybrid Retrieval
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: '#64748b', marginBottom: '0.8rem' }}>
+                Verify that newly uploaded statutory text is immediately searchable via dense and lexical ranking.
+              </p>
+              <form onSubmit={handleTestRetrieval} style={{ display: 'flex', gap: '8px', marginBottom: '1rem' }}>
+                <input
+                  type="text"
+                  placeholder="e.g., compensation for damaged parcel"
+                  value={testQuery}
+                  onChange={(e) => setTestQuery(e.target.value)}
+                  className="form-control"
+                  style={{ flex: 1, fontSize: '0.85rem' }}
+                />
+                <button
+                  type="submit"
+                  className="btn btn-outline"
+                  disabled={testingRetrieval || !testQuery.trim()}
+                  style={{ padding: '6px 12px' }}
+                >
+                  {testingRetrieval ? 'Searching...' : 'Test'}
+                </button>
+              </form>
+
+              {testResults && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {testResults.length === 0 ? (
+                    <div style={{ fontSize: '0.85rem', color: '#94a3b8', textAlign: 'center' }}>No matching chunks found.</div>
+                  ) : (
+                    testResults.map((r, i) => (
+                      <div key={i} style={{ background: '#f8fafc', padding: '10px', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
+                        <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#1e40af' }}>{r.legal_reference}</div>
+                        <div style={{ fontSize: '0.78rem', color: '#475569', marginTop: '2px', lineClamp: 2, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                          {r.clean_text || r.text}
+                        </div>
+                        <div style={{ fontSize: '0.72rem', color: '#059669', fontWeight: 600, marginTop: '4px' }}>
+                          Score: {r.relevance_score?.toFixed(4)} • Page {r.start_page}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: Indexed Postal Knowledge Base Registry */}
+          <div className="card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', paddingBottom: '0.8rem', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Database size={20} color="#1d4ed8" />
+                <h3 style={{ margin: 0 }}>Indexed Official Documents ({documents.length})</h3>
+              </div>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <input
+                  type="text"
+                  placeholder="🔍 Search indexed documents..."
+                  value={documentSearch}
+                  onChange={(e) => setDocumentSearch(e.target.value)}
+                  className="form-control"
+                  style={{ width: '260px', fontSize: '0.82rem', padding: '6px 10px' }}
+                />
+                <button
+                  className="btn btn-outline btn-sm"
+                  onClick={fetchDocuments}
+                  title="Refresh Document List"
+                >
+                  <RefreshCw size={14} className={loadingDocuments ? 'spin' : ''} />
+                </button>
+              </div>
+            </div>
+
+            {loadingDocuments ? (
+              <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>
+                <RefreshCw size={24} className="spin" style={{ margin: '0 auto 0.5rem auto' }} />
+                Loading indexed legal documents...
+              </div>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                {(() => {
+                  const filtered = documents.filter((d) => {
+                    if (!documentSearch) return true;
+                    const q = documentSearch.toLowerCase();
+                    return (
+                      d.document_title?.toLowerCase().includes(q) ||
+                      d.document_type?.toLowerCase().includes(q) ||
+                      d.issuing_authority?.toLowerCase().includes(q) ||
+                      d.document_id?.toLowerCase().includes(q)
+                    );
+                  });
+
+                  if (filtered.length === 0) {
+                    return (
+                      <div style={{ textAlign: 'center', padding: '3rem', color: '#94a3b8' }}>
+                        No indexed documents match "{documentSearch}"
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                      <thead>
+                        <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0', color: '#475569', fontSize: '0.82rem', textTransform: 'uppercase' }}>
+                          <th style={{ padding: '10px 12px' }}>Document ID</th>
+                          <th style={{ padding: '10px 12px' }}>Title &amp; Authority</th>
+                          <th style={{ padding: '10px 12px' }}>Type</th>
+                          <th style={{ padding: '10px 12px', textAlign: 'center' }}>Pages</th>
+                          <th style={{ padding: '10px 12px', textAlign: 'center' }}>Chunks</th>
+                          <th style={{ padding: '10px 12px', textAlign: 'center' }}>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filtered.map((doc, idx) => (
+                          <tr key={doc.document_id || idx} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '12px', fontFamily: 'monospace', fontWeight: 700, fontSize: '0.85rem', color: '#2563eb' }}>
+                              {doc.document_id}
+                            </td>
+                            <td style={{ padding: '12px' }}>
+                              <div style={{ fontWeight: 700, fontSize: '0.92rem', color: '#0f172a' }}>
+                                {doc.document_title}
+                              </div>
+                              <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
+                                🏛️ {doc.issuing_authority}
+                              </div>
+                            </td>
+                            <td style={{ padding: '12px' }}>
+                              <span className="badge badge-primary" style={{ fontSize: '0.75rem', fontWeight: 600 }}>
+                                {doc.document_type}
+                              </span>
+                            </td>
+                            <td style={{ padding: '12px', textAlign: 'center', fontSize: '0.85rem', color: '#334155' }}>
+                              {doc.pages}
+                            </td>
+                            <td style={{ padding: '12px', textAlign: 'center', fontWeight: 700, fontSize: '0.9rem', color: '#047857' }}>
+                              {doc.chunk_count}
+                            </td>
+                            <td style={{ padding: '12px', textAlign: 'center' }}>
+                              <span className="badge badge-success" style={{ fontSize: '0.72rem' }}>
+                                ● Live in Index
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  );
+                })()}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

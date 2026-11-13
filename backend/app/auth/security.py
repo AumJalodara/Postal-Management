@@ -3,10 +3,17 @@ from typing import Optional, Dict, Any
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError, VerificationError
 import jwt
+import hashlib
+import uuid
 from app.config import settings
 
 # Initialize Argon2id password hasher
 ph = PasswordHasher()
+
+
+def get_token_hash(token: str) -> str:
+    """Generate SHA256 hex digest of a token for secure indexing & lookup."""
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
 
 
 def hash_password(password: str) -> str:
@@ -35,7 +42,8 @@ def create_access_token(data: Dict[str, Any], expires_delta: Optional[timedelta]
     
     to_encode.update({
         "exp": expire,
-        "iat": now
+        "iat": now,
+        "jti": str(uuid.uuid4())
     })
     encoded_jwt = jwt.encode(to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
     return encoded_jwt

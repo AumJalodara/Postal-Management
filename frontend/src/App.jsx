@@ -5,6 +5,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Profile from './pages/Profile';
 import CitizenDashboard from './pages/CitizenDashboard';
 import CreateParcel from './pages/CreateParcel';
 import MyParcels from './pages/MyParcels';
@@ -92,6 +93,7 @@ export default function App() {
 
             {/* Shared Protected Routes (Citizen, Agent, Admin) */}
             <Route element={<ProtectedRoute allowedRoles={['CITIZEN', 'AGENT', 'ADMIN']} />}>
+              <Route path="/profile" element={<Profile />} />
               <Route path="/pickups/:id" element={<PickupDetails />} />
               <Route path="/parcels/:trackingId/qr" element={<QRCodeDisplay />} />
             </Route>
