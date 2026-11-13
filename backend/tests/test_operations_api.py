@@ -137,3 +137,17 @@ def test_operations_citizen_parcels_endpoint(client, seed_users):
     data = resp.json()["data"]
     assert isinstance(data, list)
 
+
+def test_operations_analytics_endpoint(client, seed_users):
+    admin = seed_users["admin"]
+    headers = auth_header_for_user(admin)
+
+    resp = client.get("/api/v1/operations/analytics", headers=headers)
+    assert resp.status_code == 200
+    data = resp.json()["data"]
+    assert "summary" in data
+    assert "intelligent_search_stats" in data
+    assert "parcels_by_status" in data
+    assert "parcels_by_priority" in data
+    assert data["intelligent_search_stats"]["retrieval_architecture"] == "Hybrid Reciprocal Rank Fusion (RRF, k=60)"
+
