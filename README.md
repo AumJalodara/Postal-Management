@@ -101,11 +101,9 @@ The retrieval engine was empirically benchmarked across **35 ground-truth statut
 | **Recall@1** | 85.71% | 77.14% | **85.71%** | Retains high top-rank precision |
 | **Recall@3** | 91.43% | **94.29%** | 91.43% | Reliable multi-rank candidate capture |
 | **Recall@5** | 91.43% | **97.14%** | 94.29% | Comprehensive statutory context |
-| **Recall@10** | 91.43% | **100.00%** | **100.00%** | **Zero missing legal provisions at Top-10** |
 | **Precision@5** | 0.2229 | **0.3257** | 0.2457 | High signal-to-noise ratio in legal chunks |
 | **Mean Reciprocal Rank (MRR)** | 0.8857 | 0.9010 | **0.9303** | **Optimal ranking (relevant chunk at rank 1.07)** |
 | **nDCG@5** | 0.8015 | **0.8489** | 0.8231 | Strong graded legal relevance |
-| **Top-10 Failures** | 3 / 35 (8.57%) | 0 / 35 (0.00%) | **0 / 35 (0.00%)** | **100% search robustness (0 failures)** |
 | **Mean Latency** | **12.88 ms** | 24.75 ms | 42.36 ms | Sub-50ms real-time response time |
 
 ---
